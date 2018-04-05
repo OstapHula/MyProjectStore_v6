@@ -1,0 +1,120 @@
+package ua.springboot.web.controller;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ua.springboot.web.domain.CreateProductRequest;
+import ua.springboot.web.entity.ProductEntity;
+import ua.springboot.web.entity.enumeration.FaseColor;
+import ua.springboot.web.entity.enumeration.FaseType;
+import ua.springboot.web.entity.enumeration.MaterialBody;
+import ua.springboot.web.entity.enumeration.MaterialStrap;
+import ua.springboot.web.entity.enumeration.ProductStyle;
+import ua.springboot.web.mapper.ProductMapper;
+import ua.springboot.web.service.ProductService;
+import ua.springboot.web.service.utils.CustomFileUtils;
+
+@Controller
+@RequestMapping("/product")
+public class ProductController {
+    
+    @Autowired private ProductService productService;
+    
+    @GetMapping("/list/pages")
+    public String showPagebleProduct(Model model, @PageableDefault Pageable pegeable){
+	Page<ProductEntity> page = productService.findAllProductsByPage(pegeable);
+	
+	int currentPage = page.getNumber();
+	int begin = Math.max(1, currentPage - 5);
+	int end = Math.min(begin + 5, page.getNumber());
+	
+	model.addAttribute("currentList", page);
+	model.addAttribute("beginIndex", begin);
+	model.addAttribute("endIndex", end);
+	model.addAttribute("currentIndex", currentPage);
+	model.addAttribute("productsListByPageSize", page.getContent());
+	
+	return "product/products";
+    }
+    
+    @GetMapping("sdfasfags/getnerate/random")
+    public String generateRandom(){
+	
+	for (int i = 0; i < 100; i++) {
+	    ProductEntity product = new ProductEntity();
+	    product.setName("Product_" + i);
+	    product.setDescription("Product description_" + i);
+	    product.setPrice(new BigDecimal(i*10 + ".00"));
+	    
+	    productService.saveProduct(product);
+	}
+	return "";
+    }
+    
+    @GetMapping("/product/{productId}")
+    public String showProduct(@PathVariable("productId") int productId, Model model) throws IOException{
+	ProductEntity product = productService.findProductById(productId);
+	product.setImagePath(CustomFileUtils.getImage("product_" + product.getId(), product.getImagePath()));
+	
+	model.addAttribute("title", product.getName() + " page");
+	model.addAttribute("productModel", product);
+	return "product/product";
+    }
+    
+    @GetMapping("/add-product")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String showCreateProduct(Model model){
+	model.addAttribute("title", "Create new product");
+	
+	model.addAttribute("styleModel", ProductStyle.values());
+	model.addAttribute("materialStrapModel", MaterialStrap.values());
+	model.addAttribute("materialBodyModel", MaterialBody.values());
+	model.addAttribute("FaseTypeModel", FaseType.values());
+	model.addAttribute("FaseColorModel", FaseColor.values());
+	
+	model.addAttribute("productModel", new CreateProductRequest());
+	return "product/add-product";
+    }
+    
+    @PostMapping("/add-product")
+    public String saveCreatedProduct(
+	    @ModelAttribute("productModel") CreateProductRequest request
+	    ) throws IOException{	
+	ProductEntity entity = ProductMapper.ProductRequestToProductEntity(request);
+	
+	productService.saveProduct(entity);
+	
+	System.out.println("Id products: " + entity.getId());
+	
+	CustomFileUtils.createFolder("product_" + entity.getId());
+	CustomFileUtils.createImage("product_" + entity.getId(), request.getProductImage());
+	
+	return "redirect:/product/product/" + entity.getId();
+    }
+    
+    @GetMapping("/add-to-cart")
+    public String addToCartProduct(@RequestParam("id") int id){
+	return "redirect:/product/list/pages";
+    }
+    
+    @GetMapping("/delete")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String delProduct(@RequestParam("id") int id){
+	productService.delProductById(id);;
+	return "redirect:/product/list/pages";
+    }
+}
