@@ -45,8 +45,13 @@
 		      
 		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">Watch style: </label>
-		         <div class="col-sm-9 justify-content-around">
-					<form:radiobuttons path="style" items="${styleModel}"/>
+		         <div class="col-sm-9">
+		         	<c:forEach items="${styleModel}" var="style">
+		         		<div class="custom-control custom-radio custom-control-inline">
+		         		  <form:radiobutton path="${productModel.style}" name="customRadio" class="custom-control-input" id="customRadio${style}"/>
+						  <form:label path="${productModel.style}" class="custom-control-label" for="customRadio${style}">${style}</form:label>
+						</div>
+		         	</c:forEach>
 		         </div>
 		      </div>
 		      
@@ -131,7 +136,10 @@
 		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">Upload image: </label>
 		         <div class="col-sm-9">
-		           <form:input path="productImage" type="file"/>
+		           <div class="custom-file">
+					  <form:input path="productImage" type="file" class="custom-file-input" id="customFile"/>
+					  <label class="custom-file-label" for="customFile">Choose file</label>
+					</div>
 		         </div>
 		      </div> 
 		      

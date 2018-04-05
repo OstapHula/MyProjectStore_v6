@@ -31,11 +31,14 @@ public class ProductEntity extends BaseEntity{
 	@Column(columnDefinition = "DECIMAL(5,2)")
 	private BigDecimal price;
 	
-	@Column(name = "description", nullable = false, length = 512)
+	@Column(name = "description")
 	private String description;
 	
 	@Column(name = "image_path")
 	private String imagePath;
+	
+	@Column(name = "in_stock")
+	private int inStock;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parameters_product_id", nullable = true)

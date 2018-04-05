@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.springboot.web.domain.CreateProductRequest;
+import ua.springboot.web.domain.ProductNameFilter;
 import ua.springboot.web.entity.ProductEntity;
 import ua.springboot.web.entity.enumeration.FaseColor;
 import ua.springboot.web.entity.enumeration.FaseType;
@@ -34,24 +35,36 @@ public class ProductController {
     
     @Autowired private ProductService productService;
     
-    @GetMapping("/list/pages")
+    @GetMapping("/catalog")
     public String showPagebleProduct(Model model, @PageableDefault Pageable pegeable){
 	Page<ProductEntity> page = productService.findAllProductsByPage(pegeable);
 	
 	int currentPage = page.getNumber();
-	int begin = Math.max(1, currentPage - 5);
-	int end = Math.min(begin + 5, page.getNumber());
+	int totalPage = page.getTotalPages() - 1;
+	int begin = Math.max(0, currentPage - 2);
+	int end = Math.min(currentPage + 2, totalPage);
 	
 	model.addAttribute("currentList", page);
 	model.addAttribute("beginIndex", begin);
 	model.addAttribute("endIndex", end);
 	model.addAttribute("currentIndex", currentPage);
+	model.addAttribute("totalIndex", totalPage);
 	model.addAttribute("productsListByPageSize", page.getContent());
 	
 	return "product/products";
     }
     
-    @GetMapping("sdfasfags/getnerate/random")
+    @GetMapping("/products/search")
+    public String showProductsByNameFilter(
+	    Model model, @PageableDefault Pageable pegeable,
+	    @RequestParam ("search") String search){
+	Page<ProductEntity> page = productService.findProductByName(pegeable, new ProductNameFilter(search));
+	
+	model.addAttribute("productList", page.getContent());
+	return "product/products";
+    }
+    
+    @GetMapping("zfgsdg/getnerate/random")
     public String generateRandom(){
 	
 	for (int i = 0; i < 100; i++) {
@@ -59,11 +72,14 @@ public class ProductController {
 	    product.setName("Product_" + i);
 	    product.setDescription("Product description_" + i);
 	    product.setPrice(new BigDecimal(i*10 + ".00"));
+	    product.setInStock(i%5);
 	    
 	    productService.saveProduct(product);
 	}
 	return "";
     }
+    
+
     
     @GetMapping("/product/{productId}")
     public String showProduct(@PathVariable("productId") int productId, Model model) throws IOException{

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ua.springboot.web.domain.LoginRequest;
 import ua.springboot.web.domain.RegisterRequest;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.service.UserService;
@@ -32,7 +33,7 @@ public class BaseController {
 	@GetMapping("/login")
 	public String showLogin(Model model) {
 	    	model.addAttribute("title", "Login page");
-		model.addAttribute("loginModel", new UserEntity());
+		model.addAttribute("loginModel", new LoginRequest());
 		return "login";
 	}
 		

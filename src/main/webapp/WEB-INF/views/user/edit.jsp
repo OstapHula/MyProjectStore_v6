@@ -62,13 +62,19 @@
 		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">Upload image: </label>
 		         <div class="col-sm-9">
-		           <form:input path="file" type="file"/>
+		           <div class="custom-file">
+					  <form:input path="file" type="file" class="custom-file-input" id="customFile"/>
+					  <label class="custom-file-label" for="customFile">Choose file</label>
+					</div>
 		         </div>
 		      </div>
 		      
 			  <div class="form-group row">
-				  <div class="col-sm-9 offset-3">
+				  <div class="col-sm-6 offset-3">
 				 	<input type="submit" class="btn btn-success btn-block" value="Save change">
+				 </div>
+				 <div class="col-sm-3">
+				 	<a href="#" type="button" class="btn btn btn-secondary btn-block">Change password</a>
 				 </div>
 			  </div>
 			</div>

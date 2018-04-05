@@ -271,7 +271,7 @@ select{
   max-width: 500px;
 }
 
-.profile-img i, .product-img i{
+.profile-img i{
   padding: 10px;
 }
 
@@ -308,6 +308,14 @@ footer{
 
 .userList .table{
   min-width: inherit;
+}
+
+.userList tr th{
+	text-transform: uppercase;
+}
+
+.userList tr td{
+	vertical-align: middle;
 }
 
 .list-profile-img{
@@ -353,6 +361,50 @@ footer{
 	margin: 5px;
 	margin-bottom: 20px;
 }
+
+
+.products .listProducts{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.element-product{
+  padding: 20px; 
+  display: inline-block;
+  filter: grayscale(30%); 
+}
+
+.element-product:hover{
+	filter: grayscale(0%); 
+	transition: 0.3s;
+}
+
+.products .card{
+	width: 250px;
+	height: 490px;
+}
+
+.products .element-product .btn{
+	width: 125px;
+}
+
+.element-product .card-body{
+	padding: 0.5rem;
+}
+
+.element-product .heart{
+	position: absolute;
+  	z-index: 10;
+  	left: 215px;
+  	top: 10px;
+}
+
+.element-product .badge{
+	position: absolute;
+  	z-index: 10;
+  	left: 170px;
+} 
 
 /*********************** RESPONSIVE ***************************/
 

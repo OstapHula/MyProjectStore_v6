@@ -4,6 +4,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
 import ua.springboot.web.domain.EditUserRequest;
+import ua.springboot.web.domain.LoginRequest;
 import ua.springboot.web.domain.RegisterRequest;
 import ua.springboot.web.domain.UserProfileRequest;
 import ua.springboot.web.entity.UserEntity;
@@ -26,6 +27,15 @@ public interface UserMapper {
 		entity.setRole(UserRole.ROLE_USER);
 		
 		return entity;
+	}
+	
+	public static UserEntity loginRequestToUserEntity (LoginRequest request){
+	    UserEntity entity = new UserEntity();
+	    
+	    entity.setEmail(request.getEmail());
+	    entity.setPassword(request.getPassword());
+	    
+	    return entity;
 	}
 
 	public static UserProfileRequest entityUserToUserRequest(UserEntity entity){

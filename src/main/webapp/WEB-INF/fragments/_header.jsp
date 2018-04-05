@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto ">
         <li class="nav-item active"><a class="nav-link" href="${rootUrl}/">home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#catalog">catalog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/product/catalog">catalog</a></li>
         <li class="nav-item"><a class="nav-link" href="#SandP">shipping</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">contact</a></li>
       </ul>

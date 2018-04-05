@@ -26,17 +26,10 @@ public interface ProductMapper {
 	entity.setPrice(request.getPrice());
 	entity.setDescription(request.getDescription());
 	entity.setImagePath(request.getProductImage().getOriginalFilename());
+	entity.setInStock(request.getInStock());
 	entity.setParameters(parameters);
 	
 	return entity;
     }
     
-//    public static CreateProductRequest ProductEntityToProductRequest (ProductEntity entity){
-//	CreateProductRequest request = new CreateProductRequest();
-//	
-//	request.setId(entity.getId());
-//	
-//	return request;
-//    }
-     
 }

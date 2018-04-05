@@ -23,6 +23,7 @@ public class CreateProductRequest {
         @NotEmpty private String name;
         @NotEmpty private BigDecimal price;
         @NotEmpty private String description;
+        @NotEmpty private int inStock;
         private MultipartFile productImage;
         private ProductStyle style;
         private MaterialStrap materialStrap;
