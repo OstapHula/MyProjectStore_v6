@@ -12,7 +12,6 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,7 +31,7 @@ public class ProductEntity extends BaseEntity{
 	@Column(columnDefinition = "DECIMAL(5,2)")
 	private BigDecimal price;
 	
-	@Column(name = "description")
+	@Column(name = "description", nullable = false, length = 512)
 	private String description;
 	
 	@Column(name = "image_path")
@@ -45,15 +44,12 @@ public class ProductEntity extends BaseEntity{
 	@JoinColumn(name = "parameters_product_id", nullable = true)
 	private ParametersProductEntity parameters;
 	
-/*	@ManyToOne
-	@JoinColumn(name = "quantity_id")
-	private QuantityEntity quantity;*/
-	
-	/*@ManyToMany
+	@ManyToMany
 	@JoinTable(
-			name = "product_user",
+			name = "product_order",
 			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "user_id"))
+			inverseJoinColumns = @JoinColumn(name = "order_id")
+		)
 	private List<OrderEntity> orders = new ArrayList<>();
-*/
+	
 }
