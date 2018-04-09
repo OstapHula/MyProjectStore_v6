@@ -10,7 +10,7 @@ import javax.validation.Payload;
 
 @Target(value = ElementType.TYPE)
 @Retention(value = RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = CheckPasswordsMatchValidator.class)
+@Constraint(validatedBy = {CheckPasswordsMatchValidatorRegister.class, CheckPasswordsMatchValidatorChange.class})
 public @interface CheckPasswordsMatch {
 
 	String message() default "Entered passwords not match";

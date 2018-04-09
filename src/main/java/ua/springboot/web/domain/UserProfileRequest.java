@@ -1,7 +1,5 @@
 package ua.springboot.web.domain;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +16,7 @@ public class UserProfileRequest {
 	private String lastName;
 	private String address;
 	private String telephone;
-	private Date birthday;
+	private int age;
 	private String ImagePath;
 	private UserRole role;
 	private String isActivated;

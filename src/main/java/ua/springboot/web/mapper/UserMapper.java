@@ -3,6 +3,7 @@ package ua.springboot.web.mapper;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
+import ua.springboot.web.domain.ChangePasswordRequest;
 import ua.springboot.web.domain.EditUserRequest;
 import ua.springboot.web.domain.LoginRequest;
 import ua.springboot.web.domain.RegisterRequest;
@@ -46,7 +47,7 @@ public interface UserMapper {
 	    request.setLastName(entity.getLastName());
 	    request.setAddress(entity.getAddress());
 	    request.setTelephone(entity.getTelephone());
-	    request.setBirthday(entity.getBirthday());
+	    request.setAge(entity.getAge());
 	    request.setImagePath(entity.getImagePath());
 	    request.setIsActivated(entity.getIsActivated());
 	    request.setRole(entity.getRole());
@@ -63,6 +64,7 @@ public interface UserMapper {
 	    request.setLastName(entity.getLastName());
 	    request.setAddress(entity.getAddress());
 	    request.setTelephone(entity.getTelephone());
+	    request.setAge(entity.getAge());
 	    request.setRole(entity.getRole());
 	    request.setPassword(entity.getPassword());
 	    request.setIsActivated(entity.getIsActivated());
@@ -80,6 +82,7 @@ public interface UserMapper {
 	    entity.setLastName(request.getLastName());
 	    entity.setAddress(request.getAddress());
 	    entity.setTelephone(request.getTelephone());
+	    entity.setAge(request.getAge());
 	    entity.setRole(request.getRole());
 	    entity.setPassword(request.getPassword());
 	    entity.setIsActivated(request.getIsActivated());
@@ -89,6 +92,42 @@ public interface UserMapper {
 	    } else {
 	    	entity.setImagePath(request.getOldImage());
 	    }
+	    
+	    return entity;
+	}
+	
+	public static ChangePasswordRequest entityUserToChangePasswordRequest(UserEntity entity){
+	    ChangePasswordRequest request = new ChangePasswordRequest();
+	    
+	    request.setId(entity.getId());
+	    request.setEmail(entity.getEmail());
+	    request.setFirstName(entity.getFirstName());
+	    request.setLastName(entity.getLastName());
+	    request.setAddress(entity.getAddress());
+	    request.setTelephone(entity.getTelephone());
+	    request.setAge(entity.getAge());
+	    request.setRole(entity.getRole());
+	    request.setImagePath(entity.getImagePath());
+	    request.setIsActivated(entity.getIsActivated());
+	    
+	    return request;
+	}
+	
+	public static UserEntity changePasswordRequestToUserEntity(ChangePasswordRequest request){
+	    UserEntity entity = new UserEntity();
+	    
+	    entity.setId(request.getId());
+	    entity.setEmail(request.getEmail());
+	    entity.setFirstName(request.getFirstName());
+	    entity.setLastName(request.getLastName());
+	    entity.setAddress(request.getAddress());
+	    entity.setTelephone(request.getTelephone());
+	    entity.setAge(request.getAge());
+	    entity.setRole(request.getRole());	    
+	    entity.setIsActivated(request.getIsActivated());
+	    entity.setImagePath(request.getImagePath());
+	    
+	    entity.setPassword(request.getNewPassword());
 	    
 	    return entity;
 	}

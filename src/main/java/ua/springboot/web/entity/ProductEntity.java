@@ -12,6 +12,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -44,12 +45,15 @@ public class ProductEntity extends BaseEntity{
 	@JoinColumn(name = "parameters_product_id", nullable = true)
 	private ParametersProductEntity parameters;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "product_order",
-			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "order_id")
-		)
-	private List<OrderEntity> orders = new ArrayList<>();
+/*	@ManyToOne
+	@JoinColumn(name = "quantity_id")
+	private QuantityEntity quantity;*/
 	
+	/*@ManyToMany
+	@JoinTable(
+			name = "product_user",
+			joinColumns = @JoinColumn(name = "product_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<OrderEntity> orders = new ArrayList<>();
+*/
 }

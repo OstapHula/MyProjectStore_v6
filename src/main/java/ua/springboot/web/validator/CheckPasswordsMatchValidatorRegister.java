@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import ua.springboot.web.domain.RegisterRequest;
 
 @Component
-public class CheckPasswordsMatchValidator implements ConstraintValidator<CheckPasswordsMatch, RegisterRequest> {
+public class CheckPasswordsMatchValidatorRegister implements ConstraintValidator<CheckPasswordsMatch, RegisterRequest> {
 
 	@Override
 	public void initialize(CheckPasswordsMatch constraintAnnotation) {

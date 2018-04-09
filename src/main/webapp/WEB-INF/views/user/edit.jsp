@@ -45,12 +45,16 @@
 		         </div>
 		      </div>
 	        
-		  <%--     <div class="form-group row">
-		         <label class="col-sm-3 control-label">Birthday: </label>
+		      <div class="form-group row">
+		         <label class="col-sm-3 control-label">Age: </label>
 		         <div class="col-sm-9">
-		           <form:input path="birthday" cssClass="form-control" title="Birthday" />
+		           <form:select path="age" cssClass="form-control" title="Age">
+		           		<c:forEach var="i" begin="13" end="80">
+		           			<form:option value="${i}"/>
+		           		</c:forEach>
+		           </form:select>
 		         </div>
-		      </div> --%>
+		      </div> 
 	        
 		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">E-mail address: </label>
@@ -70,11 +74,15 @@
 		      </div>
 		      
 			  <div class="form-group row">
-				  <div class="col-sm-6 offset-3">
-				 	<input type="submit" class="btn btn-success btn-block" value="Save change">
+			  	 <div class="col-sm-4 offset-3">
+				 	<a role="button" class="btn btn btn-secondary btn-block" href="/user/change-pass">
+						<i class="fas fa-key"></i> Change password
+					</a>
 				 </div>
-				 <div class="col-sm-3">
-				 	<a href="#" type="button" class="btn btn btn-secondary btn-block">Change password</a>
+				 <div class="col-sm-5">
+				 	<button type="submit" class="btn btn-success btn-block" value="Save change">
+				 		<i class="fas fa-save"></i> Save change
+				 	</button>
 				 </div>
 			  </div>
 			</div>
@@ -82,3 +90,5 @@
      </div>
    </div>
  </div>
+				    
+ 

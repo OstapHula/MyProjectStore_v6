@@ -32,105 +32,95 @@ import ua.springboot.web.service.utils.CustomFileUtils;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-    
-    @Autowired private ProductService productService;
-    
+
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/catalog")
-    public String showPagebleProduct(Model model, @PageableDefault Pageable pegeable){
+    public String showPagebleProduct(Model model,
+	    @PageableDefault Pageable pegeable) {
 	Page<ProductEntity> page = productService.findAllProductsByPage(pegeable);
-	
+
 	int currentPage = page.getNumber();
 	int totalPage = page.getTotalPages() - 1;
 	int begin = Math.max(0, currentPage - 2);
 	int end = Math.min(currentPage + 2, totalPage);
-	
+
+	model.addAttribute("title", "Catalog page: " + (currentPage + 1));
 	model.addAttribute("currentList", page);
 	model.addAttribute("beginIndex", begin);
 	model.addAttribute("endIndex", end);
 	model.addAttribute("currentIndex", currentPage);
 	model.addAttribute("totalIndex", totalPage);
 	model.addAttribute("productsListByPageSize", page.getContent());
-	
+
 	return "product/products";
     }
-    
-    @GetMapping("/products/search")
-    public String showProductsByNameFilter(
-	    Model model, @PageableDefault Pageable pegeable,
-	    @RequestParam ("search") String search){
-	Page<ProductEntity> page = productService.findProductByName(pegeable, new ProductNameFilter(search));
-	
+
+    @PostMapping("/products/search")
+    public String showProductsByNameFilter(Model model,
+	    @PageableDefault Pageable pegeable,
+	    @RequestParam("search") String search) {
+	Page<ProductEntity> page = productService.findProductByName(pegeable,
+		new ProductNameFilter(search));
+
 	model.addAttribute("productList", page.getContent());
 	return "product/products";
     }
-    
-    @GetMapping("zfgsdg/getnerate/random")
-    public String generateRandom(){
-	
+
+    @GetMapping("/getnerate/random")
+    public String generateRandom() {
+
 	for (int i = 0; i < 100; i++) {
 	    ProductEntity product = new ProductEntity();
 	    product.setName("Product_" + i);
 	    product.setDescription("Product description_" + i);
-	    product.setPrice(new BigDecimal(i*10 + ".00"));
-	    product.setInStock(i%5);
-	    
+	    product.setPrice(new BigDecimal(i * 10 + ".00"));
+	    product.setInStock(i % 5);
+
 	    productService.saveProduct(product);
 	}
 	return "";
     }
-    
 
-    
     @GetMapping("/product/{productId}")
-    public String showProduct(@PathVariable("productId") int productId, Model model) throws IOException{
+    public String showProduct(@PathVariable("productId") int productId, Model model) throws IOException {
 	ProductEntity product = productService.findProductById(productId);
-	product.setImagePath(CustomFileUtils.getImage("product_" + product.getId(), product.getImagePath()));
-	
+	product.setImagePath(CustomFileUtils.getImage(
+		"product_" + product.getId(), product.getImagePath()));
+
 	model.addAttribute("title", product.getName() + " page");
 	model.addAttribute("productModel", product);
 	return "product/product";
     }
-    
+
     @GetMapping("/add-product")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String showCreateProduct(Model model){
+    public String showCreateProduct(Model model) {
 	model.addAttribute("title", "Create new product");
-	
+
 	model.addAttribute("styleModel", ProductStyle.values());
 	model.addAttribute("materialStrapModel", MaterialStrap.values());
 	model.addAttribute("materialBodyModel", MaterialBody.values());
 	model.addAttribute("FaseTypeModel", FaseType.values());
 	model.addAttribute("FaseColorModel", FaseColor.values());
-	
+
 	model.addAttribute("productModel", new CreateProductRequest());
 	return "product/add-product";
     }
-    
+
     @PostMapping("/add-product")
     public String saveCreatedProduct(
-	    @ModelAttribute("productModel") CreateProductRequest request
-	    ) throws IOException{	
-	ProductEntity entity = ProductMapper.ProductRequestToProductEntity(request);
-	
+	    @ModelAttribute("productModel") CreateProductRequest request) throws IOException {
+	ProductEntity entity = ProductMapper.createProductRequestToProductEntity(request);
+
 	productService.saveProduct(entity);
-	
-	System.out.println("Id products: " + entity.getId());
-	
+
 	CustomFileUtils.createFolder("product_" + entity.getId());
-	CustomFileUtils.createImage("product_" + entity.getId(), request.getProductImage());
-	
+	CustomFileUtils.createImage("product_" + entity.getId(),
+		request.getProductImage());
+
 	return "redirect:/product/product/" + entity.getId();
     }
-    
-    @GetMapping("/add-to-cart")
-    public String addToCartProduct(@RequestParam("id") int id){
-	return "redirect:/product/list/pages";
-    }
-    
-    @GetMapping("/delete")
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    public String delProduct(@RequestParam("id") int id){
-	productService.delProductById(id);;
-	return "redirect:/product/list/pages";
-    }
+
 }

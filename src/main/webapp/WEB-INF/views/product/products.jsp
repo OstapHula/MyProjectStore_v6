@@ -7,7 +7,7 @@
 
 <div class="container body products">
 	
-	<div class="row">
+	<div class="row justify-content-between">
 		<nav>
 		  <ul class="pagination">
 		  	<c:choose>
@@ -44,33 +44,40 @@
 		  </ul>
 		</nav>
 		
-		<form action="/product/products/search" class="form-inline">
+		<form:form action="/product/products/search" method="POST" class="form-inline">
 			<input type="text" name="search" placeholder="Type title product for search" class="form-control">
 			<input type="submit" value="Search" class="btn btn-primary">
-		</form>
+		</form:form>
 	</div>
+	
+	<hr>
 	
 	<div class="row listProducts">
    	  <c:forEach items="${productsListByPageSize}" var="product">
 		<div class="element-product">
-		   <div class="card bg-light">
-		   	 <a href="#"><i class="fas fa-heart heart"></i></a>
+		   <div class="card bg-light border-light">
+		   	 
              <%-- <img src="data:image/png; base64, ${product.imagePath}" alt="product" class="card-img-top"> --%>
-             <a href="/product/product/${product.id}"><img src="${rootUrl}/resources/img/products/9063.png" class="card-img-top"></a>
+           	 <a href="#"><i class="fas fa-heart heart"></i></a>
+             <a href="/product/product/${product.id}">
+             	<img src="${rootUrl}/resources/img/products/9063.png" class="card-img-top">
+             </a>
              <hr>
              <div class="card-body">      
                <span class="badge badge-info">In stock: ${product.inStock}</span>  
                <h5 class="card-title">${product.name}</h5>              	               
 	           <h3 class="price">Price: ${product.price} <i class="fas fa-dollar-sign"></i></h3>	               
              </div>
-             <div class="btn-group" role="group" aria-label="Basic example">
-               <a href="/product/add-to-cart?id=${product.id}" class="btn btn-success"><i class="fas fa-shopping-cart"></i> Add to cart</a>
-               <a href="/product/buy-now" class="btn btn-secondary"><i class="fas fa-shopping-basket"></i> Buy now</a>
+             <div class="btn-group" role="group" aria-label="Basic example">               
+               <a href="/product/product/${product.id}" class="btn btn-secondary"><i class="fas fa-info"></i> Details</a>
+               <a href="/product/add-to-cart?id=${product.id}" class="btn btn-success"><i class="fas fa-shopping-basket"></i> Buy now</a>
              </div>
            </div>
 		</div>
 	  </c:forEach>
 	</div>
+	
+	<hr>
 	
 	<div class="row">
 		<nav>
@@ -111,5 +118,5 @@
 	</div>
 </div>
 <a href="#" class="btn btn-light btn-block btn-lg backtt up-arrow" data-toggle="tooltip" title="TO TOP">
-   <i class="fas fa-angle-double-up"></i> Back to top
+   <i class="fas fa-angle-double-up animated fadeInUp" id="animated"></i> Back to top
 </a>

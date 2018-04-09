@@ -5,17 +5,22 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import ua.springboot.web.domain.ChangePasswordRequest;
 import ua.springboot.web.domain.EditUserRequest;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.mapper.UserMapper;
@@ -47,7 +52,7 @@ public class UserController {
     public String editUserProfile(Model model, Principal principal){
 	UserEntity entity = userService.findUserByEmail(principal.getName());	
 	EditUserRequest request = UserMapper.entityUserToEditRequest(entity);
-	
+
 	model.addAttribute("title", "Edit profile page");
 	model.addAttribute("editUserModel", request);
 	return "user/edit";
@@ -62,6 +67,30 @@ public class UserController {
 	return "redirect:/user";
     }
     
+    @GetMapping("/change-pass")
+    public String showChangePass(Model model, Principal principal){
+	UserEntity entity = userService.findUserByEmail(principal.getName());	
+	ChangePasswordRequest request = UserMapper.entityUserToChangePasswordRequest(entity);
+	
+	model.addAttribute("title", "Change password page");
+	model.addAttribute("changePassModel", request);
+	return "user/change-pass";
+    }
+    
+    @PostMapping("/change-pass")
+    public ModelAndView saveChangePass(
+	    @ModelAttribute ("changePassModel") @Valid ChangePasswordRequest request,
+	    BindingResult result,
+	    Principal principal){
+	if(result.hasErrors()) return new ModelAndView("user/change-pass");
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	
+	if(!request.getPassword().equals(user.getPassword())) return new ModelAndView("user/change-pass", "error", "Old password entered incorrectly");
+	UserEntity entity = UserMapper.changePasswordRequestToUserEntity(request);
+	userService.updateUser(entity);
+	return new ModelAndView("redirect:/user/edit");
+    }
+    
     @GetMapping("/users")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String showListUsers(Model model) throws IOException{
@@ -73,6 +102,14 @@ public class UserController {
 	model.addAttribute("userListModel", users);
 	return "user/users";
     } 
+    
+    @GetMapping("/cart")
+    public String showUserCart(Model model, Principal principal){
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	model.addAttribute("title", "Cart page");
+	model.addAttribute("cartList", user.getOrders());
+	return "user/cart";
+    }
     
     @GetMapping("/delete")
     @PreAuthorize("hasAnyRole('ADMIN')")

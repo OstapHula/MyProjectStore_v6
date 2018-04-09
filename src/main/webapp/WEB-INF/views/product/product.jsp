@@ -14,8 +14,8 @@
 			</div>
 			<h3 class="price">${productModel.price} <i class="fas fa-dollar-sign"></i></h3>
 			<div class="row buy-btn">
-				<button type="button" class="btn btn-success ">Add to cart <i class="fas fa-shopping-cart"></i></button>
-				<button type="button" class="btn btn-secondary ">Buy now <i class="fas fa-shopping-basket"></i></button>
+				<a href="/order/add-to-cart?id=${productModel.id}" role="button" class="btn btn-success ">Add to cart <i class="fas fa-shopping-cart"></i></a>
+				<a href="#" role="button" class="btn btn-secondary ">Buy now <i class="fas fa-shopping-basket"></i></a>
 			</div>
 		    <a data-toggle="collapse" href="#collapseExample">
 		      <u>Product details</u> <i class="fas fa-sort-down"></i>

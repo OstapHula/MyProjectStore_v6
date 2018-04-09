@@ -132,7 +132,7 @@
   <div id="googleMap"></div>
 
   <a href="#" class="btn btn-light btn-block btn-lg backtt up-arrow" data-toggle="tooltip" title="TO TOP">
-    <i class="fas fa-angle-double-up"></i> Back to top
+    <i class="fas fa-angle-double-up animated fadeInUp" id="animated"></i> Back to top
   </a>
 </main>
 

@@ -43,7 +43,7 @@
 	       <a href="/product/add-product" class="btn btn-block nav-link"><i class="fas fa-plus"></i> New product</a>
 	     </li>
 	     <li>
-	       <a href="/user/orders" class="btn btn-block nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
+	       <a href="/order/orders" class="btn btn-block nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
 	     </li>
 	     <li>
 	       <a href="/user/users" class="btn btn-block nav-link"><i class="fas fa-users"></i> Users</a>

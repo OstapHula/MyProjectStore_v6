@@ -4,6 +4,9 @@
   padding: 0px;
   margin: 0px;
 }
+*:hover{
+	transition: 0.3s;
+}
 body {
   color: #5a5a5a;
 }
@@ -44,23 +47,28 @@ select{
   border-radius: 0px !important;
 }
 
-.navbar .btn {
-  margin: 0.3rem;
-}
-
-.btn-sm{
-  font-size: 0.7rem;
+.navbar .btn:hover{
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .btn:hover{
   border-color: #fff;
   color: #fff !important;
-  transition: 0.3s;
+}
+
+.dropdown-menu{
+  border-radius: 0px;
+}
+
+.dropdown-menu .btn:hover{
+	color: #999 !important;
 }
 
 .error{
   color: red !important;
 }
+
+/************************ NAVBAR **************************/
 
 .navbar {
   font-family: Montserrat, sans-serif; 
@@ -73,8 +81,17 @@ select{
   margin: 0px;
 }
 
+.right-navbar .btn{
+  font-size: 0.8rem; 
+  margin: 0.3rem 0px;
+}
+
+.right-navbar li{
+	margin-right: 0.3rem;
+}
+
 .right-navbar{
-  letter-spacing: 2px;
+	letter-spacing: 2px;
 }
 
 /************************ LOGO **************************/
@@ -167,7 +184,6 @@ select{
 
 .team img:hover {
   filter: grayscale(0%); 
-  transition: 0.3s;
 }
 
 /*********************** OTHER ***************************/
@@ -262,7 +278,6 @@ select{
 
 .profile-img img:hover{
   filter: opacity(0.8);
-  transition: 0.4s;
 }
 
 .product-img img{
@@ -291,6 +306,8 @@ select{
   margin: 1rem 0px;
 }
 
+/*********************** LEFT NAW ***************************/
+
 .left-naw .nav-link{
   text-align: left;
 }
@@ -299,23 +316,18 @@ select{
   color: #333 !important;
 }
 
-footer{
-  font-family: Montserrat, sans-serif; 
-  background-color: #2d2d30;
-  padding: 1.3rem;
-  padding-bottom: .8rem;
-}
+/*********************** ADMIN ***************************/
 
 .userList .table{
   min-width: inherit;
 }
 
 .userList tr th{
-	text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .userList tr td{
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
 .list-profile-img{
@@ -323,7 +335,6 @@ footer{
   height: 40px;
   border-radius: 50%;
 }
-
 
 .is-activated-true, .is-activated-false{
   width: 5px;
@@ -339,6 +350,8 @@ footer{
   background-color: #f00;
 }
 
+/*********************** PRODUCT ***************************/
+
 .control-label{
   display: flex;
   justify-content: flex-end !important;
@@ -348,20 +361,19 @@ footer{
 }
 
 .heart{
-	color: red;
-	font-size: 20px;
+  color: red;
+  font-size: 20px;
 }
 
 .price{
-	font-weight: lighter;
-	margin-top: 20px;
+  font-weight: lighter;
+  margin-top: 20px;
 }
 
 .buy-btn button{
-	margin: 5px;
-	margin-bottom: 20px;
+  margin: 5px;
+  margin-bottom: 20px;
 }
-
 
 .products .listProducts{
   display: flex;
@@ -371,40 +383,58 @@ footer{
 
 .element-product{
   padding: 20px; 
-  display: inline-block;
-  filter: grayscale(30%); 
-}
-
-.element-product:hover{
-	filter: grayscale(0%); 
-	transition: 0.3s;
+  display: inline-block; 
 }
 
 .products .card{
-	width: 250px;
-	height: 490px;
+  width: 250px;
+  height: 490px;
 }
 
 .products .element-product .btn{
-	width: 125px;
+  width: 125px;
 }
 
 .element-product .card-body{
-	padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .element-product .heart{
-	position: absolute;
-  	z-index: 10;
-  	left: 215px;
-  	top: 10px;
+  position: absolute;
+  z-index: 10;
+  left: 215px;
+  top: 10px;
 }
 
 .element-product .badge{
-	position: absolute;
-  	z-index: 10;
-  	left: 170px;
+  position: absolute;
+  z-index: 10;
+  left: 170px;
 } 
+
+.element-product img{
+  padding: 15px;
+  height: 300px;
+}
+
+.products .pagination .page-item, .page-link{
+  border: none;
+
+}
+
+.page-link:hover{
+  color: #333;
+  background-color: #fff;
+}
+
+/*********************** FOOTER ***************************/
+
+footer{
+  font-family: Montserrat, sans-serif; 
+  background-color: #2d2d30;
+  padding: 1.3rem;
+  padding-bottom: .8rem;
+}
 
 /*********************** RESPONSIVE ***************************/
 
@@ -425,6 +455,14 @@ footer{
     margin-top: 7rem;
   }
 }
+
+/*********************** ANIMATION ***************************/
+#animated {
+  -webkit-animation-duration: 2s;
+  -webkit-animation-delay: 1s;
+  -webkit-animation-iteration-count: infinite;
+}
+
 
 
 

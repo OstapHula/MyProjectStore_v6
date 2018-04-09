@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/taglib.jsp" %>
  
- 
  <div class="container body profile">
     <div class="row">
     
@@ -21,11 +20,10 @@
 	        <hr>
 	        <ul>
 		         <li>Name: ${userProfile.firstName} ${userProfile.lastName}</li>
-		         <li>Age: ${userProfile.birthday.getYear}</li>
+		         <li>Age: ${userProfile.age}</li>
 			  	 <li>Email: ${userProfile.email}</li>
 				 <li>Address: ${userProfile.address}</li>
-				 <li>Telephone: ${userProfile.telephone}</li>
-				 <li>Birthday: ${userProfile.birthday}</li> 
+				 <li>Telephone: ${userProfile.telephone}</li> 
 	        </ul>
 	      </div>
         </div>
@@ -37,7 +35,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="photoModalLabel">Photo user_name</h5>
+            <h5 class="modal-title" id="photoModalLabel">Photo ${userProfile.firstName}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -46,11 +44,7 @@
              <img src="data:image/png; base64, ${userProfile.imagePath}" alt="image profile"/>
           </div>
           <div class="modal-footer justify-content-between">
-			<%-- <form:form modelAttribute="uploadImageModel" method="POST" action="/user/profile/image" enctype="multipart/form-data">
-          		<form:input path="file" type="file"/> 
-          		<input type="submit" value="Upload image" class="btn btn-primary"/>
-          	</form:form>   --%>
-            <a href="user/edit" type="button" class="btn btn-primary"><i class="fas fa-upload"></i> Upload new photo</a>
+            <a href="user/edit" role="button" class="btn btn-primary"><i class="fas fa-upload"></i> Upload new photo</a>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
