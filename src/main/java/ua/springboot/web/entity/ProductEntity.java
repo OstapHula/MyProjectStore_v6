@@ -12,6 +12,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -44,12 +45,15 @@ public class ProductEntity extends BaseEntity{
 	@JoinColumn(name = "parameters_product_id", nullable = true)
 	private ParametersProductEntity parameters;
 	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private List<QuantityProductsEntity> quantitys = new ArrayList<>();
+	
 	@ManyToMany
 	@JoinTable(
-			name = "product_order",
-			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "order_id")
+		name = "user_product",
+		joinColumns = @JoinColumn(name = "product_id"),
+		inverseJoinColumns = @JoinColumn(name = "user_id")
 		)
-	private List<OrderEntity> orders = new ArrayList<>();
+	private List<UserEntity> users = new ArrayList<>();
 	
 }

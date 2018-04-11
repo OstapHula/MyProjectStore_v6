@@ -42,7 +42,7 @@
 					  <td>${user.createdAt}</td>
 					  <%-- <td>${user.shops}</td> --%>
 					  <td>	  	
-					  	<a href="/user/delete?id=${user.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
+					  	<a href="/user/delete/user?id=${user.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
 					  	<!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
 						  <i class="fas fa-trash-alt"></i> Delete
 						</button> -->

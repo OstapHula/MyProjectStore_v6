@@ -6,7 +6,7 @@
      <%@ include file="/WEB-INF/fragments/_leftnav.jsp" %>
      
      <div class="col-lg-9">			
-		<h2>Order List</h2>
+		<h2>My cart</h2>
 		<hr>
 		<div style="overflow-x: auto">
 			<table class="table table-sm table-bordered ">
@@ -14,28 +14,24 @@
 			    <tr>
 			      	<th>Image</th>
 					<th>Title</th>
+					<th>Create At</th>
 					<th>price</th>
-					<th>inCart</th>
+					<th>Quantity</th>
 					<th>Total</th>
 					<th>Delete</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<c:forEach items="${cartList}" var="product">
+			  	<c:forEach items="${cartList}" var="quantity">
 				    <tr>
-				      <td scope="row"><img src="data:image/png; base64, ${product.imagePath}" alt="image product" ></td>
-				      <td>${product.name}</td>
-				      <td>${product.createdAt}</td>
-					  <td>${product.price}</td>					  
+				      <td scope="row"><img src="data:image/png; base64, ${quantity.product.imagePath}" alt="image product" ></td>
+				      <td>${quantity.product.name}</td>
+				      <td>${quantity.product.createdAt}</td>
+					  <td>${quantity.product.price}</td>					  
+					  <td>${quantity.quantity}</td> 
+					  <td>${quantity.product.price*quantity.quantity}</td>
 					  <td>
-					  	<c:forEach items="${product.orders}" var="order">
-					  		
-					  	</c:forEach>
-					  </td>					  
-					  <td>${product.inCart}</td>
-					  <td>${product.price*product.inCart}</td>
-					  <td>
-					  	<a href="/user/delete?id=${user.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
+					  	<a href="/user/delete/quantity?id=${quantity.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
 					  </td>
 				    </tr>
 				</c:forEach>

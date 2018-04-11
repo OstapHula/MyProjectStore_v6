@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,8 +48,15 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "is_activated")
 	private String isActivated = "0";
 	
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH })
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<OrderEntity> orders = new ArrayList<>();
 	
+	@ManyToMany
+	@JoinTable(
+    		name = "user_product",
+    		joinColumns = @JoinColumn(name = "user_id"),
+    		inverseJoinColumns = @JoinColumn(name = "product_id")
+		)
+	private List<ProductEntity> products = new ArrayList<>();
 	
 }

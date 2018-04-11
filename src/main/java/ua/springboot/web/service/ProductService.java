@@ -1,5 +1,6 @@
 package ua.springboot.web.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -16,9 +17,9 @@ public interface ProductService {
     
     ProductEntity findProductById(int id);
     
-//    ProductEntity findProductByName(String name);
-//    
-//    ProductEntity findProductByPrice(BigDecimal price);
+    ProductEntity findProductByName(String name);
+    
+    ProductEntity findProductByPrice(BigDecimal price);
     
     List<ProductEntity> findAllProducts();
     

@@ -40,6 +40,9 @@ select{
   width: 100%;
   padding: 5px;
 }
+tr th{
+  text-transform: uppercase;
+}
 
 /************************* BUTTON *************************/
 
@@ -320,10 +323,6 @@ select{
 
 .userList .table{
   min-width: inherit;
-}
-
-.userList tr th{
-  text-transform: uppercase;
 }
 
 .userList tr td{

@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.springboot.web.entity.OrderEntity;
 import ua.springboot.web.entity.ProductEntity;
+import ua.springboot.web.entity.QuantityProductsEntity;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.entity.enumeration.OrderStatus;
 import ua.springboot.web.service.OrderService;
 import ua.springboot.web.service.ProductService;
+import ua.springboot.web.service.QuantityService;
 import ua.springboot.web.service.UserService;
+
 
 @Controller
 @RequestMapping("/order")
@@ -28,39 +31,61 @@ public class OrderController {
     private UserService userService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private QuantityService quantityService;
 
-//    @GetMapping("/add-to-cart")
-//    public String addToCartProduct(@RequestParam("id") int id, Principal principal) {
-//	UserEntity user = userService.findUserByEmail(principal.getName());
-//	ProductEntity product = productService.findProductById(id);
-//	OrderEntity order = new OrderEntity();
-//	
-//	if (!user.getOrders().isEmpty()) {
-//	    for (OrderEntity cart : user.getOrders()) {
-//		if (cart.getStatus() == OrderStatus.CART) {
-//		    order = cart;
-//		}
-//	    }
-//	}else{
-//	    order.setStatus(OrderStatus.CART);
-//	    order.setUser(user);
-//	}
-//	
-////	QuantityEntity quantity = new QuantityEntity();
-////	quantity.setCount(1);
-//////	quantity.getProducts().add(product);
-////	order.getQuantitys().add(quantity);
-//
-//	// user.getOrders().add(order);
-//	// user.getProducts().add(product);
-//	// product.getOrders().add(order);
-//	// product.getUsers().add(user);
-//
-//	// userService.updateUser(user);
-//	// productService.saveProduct(product);
-//	orderService.saveOrder(order);
-//	return "redirect:/product/product/" + id;
-//    }
+    @GetMapping("/add-to-cart")
+    public String addToCartProduct(@RequestParam("id") int id, Principal principal) {
+	if(principal == null) return "redirect:/login";
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	ProductEntity product = productService.findProductById(id);
+	OrderEntity order = new OrderEntity();
+	QuantityProductsEntity quantity = new QuantityProductsEntity();
+	
+	if(!user.getOrders().isEmpty()){
+	    for(OrderEntity oEntity : user.getOrders()){
+		if(oEntity.getStatus().equals(OrderStatus.CART)){
+		    order = oEntity;
+		    for(QuantityProductsEntity qEntity : order.getQuantitys()){
+			if(qEntity.getProduct().getId() == product.getId()){
+                            quantity = qEntity;
+                            quantity.setQuantity(quantity.getQuantity()+1);
+                            break;
+                        }
+		    }
+		    for(QuantityProductsEntity qEntity : order.getQuantitys()){
+			if(qEntity.getProduct().getId() != product.getId()){
+                            quantity.setProduct(product);
+                            quantity.setOrder(order);
+                            order.getQuantitys().add(quantity);
+                            break;
+                        }
+		    }
+		    break;
+		 }
+	    }
+	    for(OrderEntity oEntity : user.getOrders()){
+		if(!oEntity.getStatus().equals(OrderStatus.CART)){
+		    quantity.setProduct(product);
+		    quantity.setOrder(order);
+		    order.setStatus(OrderStatus.CART);
+		    order.getQuantitys().add(quantity);
+		    break;
+		}
+	    }
+	}else{
+	    quantity.setProduct(product);
+	    quantity.setOrder(order);
+	    order.setStatus(OrderStatus.CART);
+	    order.getQuantitys().add(quantity);
+	    order.setUser(user);
+	}	
+
+	quantityService.saveQuantity(quantity);
+	orderService.saveOrder(order);
+	
+	return "redirect:/product/product/" + id;
+    }
 
     @GetMapping("/orders")
     @PreAuthorize("hasAnyRole('ADMIN')")

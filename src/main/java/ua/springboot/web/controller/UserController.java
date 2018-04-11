@@ -22,8 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ua.springboot.web.domain.ChangePasswordRequest;
 import ua.springboot.web.domain.EditUserRequest;
+import ua.springboot.web.entity.OrderEntity;
 import ua.springboot.web.entity.UserEntity;
+import ua.springboot.web.entity.enumeration.OrderStatus;
 import ua.springboot.web.mapper.UserMapper;
+import ua.springboot.web.service.OrderService;
+import ua.springboot.web.service.QuantityService;
 import ua.springboot.web.service.UserService;
 import ua.springboot.web.service.utils.CustomFileUtils;
 
@@ -34,6 +38,10 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private QuantityService quantityService;
     
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -106,16 +114,32 @@ public class UserController {
     @GetMapping("/cart")
     public String showUserCart(Model model, Principal principal){
 	UserEntity user = userService.findUserByEmail(principal.getName());
-	model.addAttribute("title", "Cart page");
-	model.addAttribute("cartList", user.getOrders());
+	OrderEntity order = new OrderEntity();
+	if (!user.getOrders().isEmpty()) {
+	    order = orderService.findOrderByStatus(OrderStatus.CART, user.getId());
+	}
+	System.out.println("quantitys: " + order.getQuantitys());
+	model.addAttribute("title", "My cart page");
+	model.addAttribute("cartList", order.getQuantitys());
 	return "user/cart";
     }
     
-    @GetMapping("/delete")
+    @GetMapping("/delete/user")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String showDelUser(@RequestParam("id") int id){
 	if(id != 1) userService.deleteUserById(id);
 	return "redirect:/user/users";
+    }
+    
+    @GetMapping("/delete/quantity")
+    public String showDelQuantity(@RequestParam("id") int id, Principal principal){
+	quantityService.deleteQuantityById(id);
+	
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	OrderEntity order = orderService.findOrderByStatus(OrderStatus.CART, user.getId());	
+	if(order.getQuantitys().isEmpty()) orderService.deleteOrderById(order.getId());
+
+	return "redirect:/user/cart";
     }
  
 }

@@ -1,5 +1,6 @@
 package ua.springboot.web.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -35,15 +36,15 @@ public class ProductServiceImpl implements ProductService{
 	return productRepository.findOne(id);
     }
 
-//    @Override
-//    public ProductEntity findProductByName(String name) {
-//	return productRepository.findProductByName(name);
-//    }
-//
-//    @Override
-//    public ProductEntity findProductByPrice(BigDecimal price) {
-//	return productRepository.findProductByPrice(price);
-//    }
+    @Override
+    public ProductEntity findProductByName(String name) {
+	return productRepository.findProductByName(name);
+    }
+
+    @Override
+    public ProductEntity findProductByPrice(BigDecimal price) {
+	return productRepository.findProductByPrice(price);
+    }
     
     @Override
     public void delProductById(int id) {
@@ -82,4 +83,5 @@ public class ProductServiceImpl implements ProductService{
 	    }
 	};
     }
+
 }

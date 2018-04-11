@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ua.springboot.web.entity.OrderEntity;
+import ua.springboot.web.entity.enumeration.OrderStatus;
 import ua.springboot.web.repository.OrderRepository;
 import ua.springboot.web.service.OrderService;
 
@@ -27,6 +28,16 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderEntity> findAllOreders() {
 	return orderRepository.findAll();
+    }
+
+    @Override
+    public OrderEntity findOrderByStatus(OrderStatus status, Integer id) {
+	return orderRepository.findOrderByStatus(status, id);
+    }
+
+    @Override
+    public void deleteOrderById(int id) {
+	orderRepository.delete(id);
     }
 
 }
