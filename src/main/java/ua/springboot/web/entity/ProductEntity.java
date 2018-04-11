@@ -2,7 +2,9 @@ package ua.springboot.web.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,12 +50,13 @@ public class ProductEntity extends BaseEntity{
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<QuantityProductsEntity> quantitys = new ArrayList<>();
 	
+	@Column(name = "users_like")
 	@ManyToMany
 	@JoinTable(
 		name = "user_product",
 		joinColumns = @JoinColumn(name = "product_id"),
 		inverseJoinColumns = @JoinColumn(name = "user_id")
 		)
-	private List<UserEntity> users = new ArrayList<>();
+	private Set<UserEntity> usersLike = new HashSet<>();
 	
 }

@@ -45,7 +45,6 @@ public interface UserMapper {
 	    request.setEmail(entity.getEmail());
 	    request.setFirstName(entity.getFirstName());
 	    request.setLastName(entity.getLastName());
-	    request.setAddress(entity.getAddress());
 	    request.setTelephone(entity.getTelephone());
 	    request.setAge(entity.getAge());
 	    request.setImagePath(entity.getImagePath());
@@ -62,7 +61,6 @@ public interface UserMapper {
 	    request.setEmail(entity.getEmail());
 	    request.setFirstName(entity.getFirstName());
 	    request.setLastName(entity.getLastName());
-	    request.setAddress(entity.getAddress());
 	    request.setTelephone(entity.getTelephone());
 	    request.setAge(entity.getAge());
 	    request.setRole(entity.getRole());
@@ -80,7 +78,6 @@ public interface UserMapper {
 	    entity.setEmail(request.getEmail());
 	    entity.setFirstName(request.getFirstName());
 	    entity.setLastName(request.getLastName());
-	    entity.setAddress(request.getAddress());
 	    entity.setTelephone(request.getTelephone());
 	    entity.setAge(request.getAge());
 	    entity.setRole(request.getRole());
@@ -103,7 +100,6 @@ public interface UserMapper {
 	    request.setEmail(entity.getEmail());
 	    request.setFirstName(entity.getFirstName());
 	    request.setLastName(entity.getLastName());
-	    request.setAddress(entity.getAddress());
 	    request.setTelephone(entity.getTelephone());
 	    request.setAge(entity.getAge());
 	    request.setRole(entity.getRole());
@@ -120,7 +116,6 @@ public interface UserMapper {
 	    entity.setEmail(request.getEmail());
 	    entity.setFirstName(request.getFirstName());
 	    entity.setLastName(request.getLastName());
-	    entity.setAddress(request.getAddress());
 	    entity.setTelephone(request.getTelephone());
 	    entity.setAge(request.getAge());
 	    entity.setRole(request.getRole());	    

@@ -44,6 +44,13 @@
 		      </div>
 		      
 		      <div class="form-group row">
+		        <label class="col-sm-3 control-label"><span style="color:red;">* </span> In Stock: </label>
+		        <div class="col-sm-9">
+		          <form:input path="inStock" cssClass="form-control" title="In Stock" placeholder="0"/>
+		      	</div>
+		      </div>
+		      
+		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">Watch style: </label>
 		         <div class="col-sm-9">
 		         	<c:forEach items="${styleModel}" var="style">

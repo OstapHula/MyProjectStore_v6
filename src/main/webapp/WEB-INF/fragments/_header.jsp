@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/taglib.jsp"%>
 
-<header>
+<header id="home">
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 		<a class="navbar-brand logo" href="/"> 
 			<img src="${rootUrl}/resources/img/favicon.ico"> 
@@ -36,7 +36,7 @@
 								class="dropdown-toggle nav-link btn btn-outline-secondary" 
 									href="/user" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false"> 
-								${username} <span class="badge badge-light">42</span>
+								${username} <span class="badge badge-light">0</span>
 							</a>
 							<div class="dropdown-menu">
 								<a href="/user" role="button" class="btn dropdown-item"> 
@@ -51,8 +51,8 @@
 								<a href="/user/cart" role="button" class="btn dropdown-item">
 									<i class="fas fa-shopping-cart"></i> Cart
 								</a> 
-								<a href="/user/history" role="button" class="btn dropdown-item">
-									<i class="fas fa-history"></i> Shopping history
+								<a href="/user/shopping" role="button" class="btn dropdown-item">
+									<i class="fas fa-history"></i> Shopping
 								</a>
 								
 								<div class="dropdown-divider"></div>

@@ -58,11 +58,9 @@
 		<div class="element-product">
 		   <div class="card bg-light border-light">
 		   	 
-           	 <a href="#"><i class="fas fa-heart heart"></i></a>
+           	 <a href="/like?id=${product.id}"><i class="fas fa-heart heart animated pulse" id="animated"></i></a>
              <a href="/product/product/${product.id}">
-<%--              	<img src="data:image/png; base64, ${product.imagePath}" alt="product" class="card-img-top"> --%>
-				<c:out value = "${product.imagePath}"/>
-             	<img src="data:image/png; base64, ${product.imagePath}" alt="image profile"/> 
+              	<img src="data:image/png; base64, ${product.imagePath}" alt="product" class="card-img-top">
              </a>
              <hr>
              <div class="card-body">      
@@ -84,9 +82,18 @@
                		<a href="/product/product/${product.id}" class="btn btn-secondary">
                			<i class="fas fa-info"></i> Details
                		</a>
-               		<a href="/order/add-to-cart?id=${product.id}" class="btn btn-success">
-               			<i class="fas fa-shopping-basket"></i> Buy now
-               		</a>
+               		<c:choose>
+               			<c:when test="${product.inStock <= 0}">
+               				<a href="#" class="btn btn-success disabled">
+			               		<i class="fas fa-shopping-basket"></i> Buy now
+			             	</a>
+               			</c:when>
+               			<c:otherwise>
+               				<a href="/order/add-to-cart?id=${product.id}" class="btn btn-success">
+		               			<i class="fas fa-shopping-basket"></i> Buy now
+		               		</a>
+               			</c:otherwise>
+               		</c:choose>
                	</c:otherwise>
                </c:choose>              
              </div>

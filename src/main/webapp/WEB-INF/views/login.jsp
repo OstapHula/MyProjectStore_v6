@@ -17,8 +17,12 @@
 					<input name="email" type="email" class="form-control" title="E-mail address" placeholder="Email Address"/>
 					
 					<input name="password" type="password" class="form-control" title="Password" placeholder="Password" />
-					<label><input type="checkbox" name="rememberMe"/> Remember me</label>
-
+					
+					<div class="custom-control custom-checkbox">
+					  <input type="checkbox" class="custom-control-input" id="customCheck" name="rememberMe">
+					  <label class="custom-control-label" for="customCheck">Remember me</label>
+					</div>
+					<br>
 					<div class="row">
 						<div class="col-sm-6"><input type="submit" class="btn btn-success btn-block" value="Login"></div>
 						<div class="col-sm-6"><a href="/register" class="btn btn-primary btn-block">Register</a></div>

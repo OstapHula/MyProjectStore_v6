@@ -4,6 +4,7 @@ package ua.springboot.web.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -23,11 +24,13 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.springboot.web.domain.base.ChangePasswordRequest;
 import ua.springboot.web.domain.user.EditUserRequest;
 import ua.springboot.web.entity.OrderEntity;
+import ua.springboot.web.entity.ProductEntity;
 import ua.springboot.web.entity.QuantityProductsEntity;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.entity.enumeration.OrderStatus;
 import ua.springboot.web.mapper.UserMapper;
 import ua.springboot.web.service.OrderService;
+import ua.springboot.web.service.ProductService;
 import ua.springboot.web.service.QuantityService;
 import ua.springboot.web.service.UserService;
 import ua.springboot.web.service.utils.CustomFileUtils;
@@ -43,6 +46,8 @@ public class UserController {
     private OrderService orderService;
     @Autowired
     private QuantityService quantityService;
+    @Autowired
+    private ProductService productService;
     
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -113,13 +118,18 @@ public class UserController {
     } 
     
     @GetMapping("/cart")
-    public String showUserCart(Model model, Principal principal){
+    public String showUserCart(Model model, Principal principal) throws IOException{
 	UserEntity user = userService.findUserByEmail(principal.getName());
 	OrderEntity order = new OrderEntity();
 	if (!user.getOrders().isEmpty()) {
 	    order = orderService.findOrderByStatus(OrderStatus.CART, user.getId());
 	}
-
+	
+	for(QuantityProductsEntity entity : order.getQuantitys()) {
+	  ProductEntity product = entity.getProduct();
+	  product.setImagePath(CustomFileUtils.getImage("product_" + product.getId(), product.getImagePath()));
+	}
+	
 	model.addAttribute("title", "My cart page");
 	model.addAttribute("cartList", order.getQuantitys());
 	return "user/cart";
@@ -128,8 +138,13 @@ public class UserController {
     @GetMapping("/cart/increment")
     public String incrementQuantity(@RequestParam("quantity") int quantity, @RequestParam("id") int id){
 	QuantityProductsEntity qEntity = quantityService.findQuantityById(id);
-	qEntity.setQuantity(quantity + 1);
+	ProductEntity product = qEntity.getProduct();
+	if(product.getInStock() >= 1) {
+	    product.setInStock(product.getInStock() - 1);
+	    qEntity.setQuantity(quantity + 1);
+	}
 	
+	productService.saveProduct(product);
 	quantityService.saveQuantity(qEntity);
 	return "redirect:/user/cart";
     }
@@ -137,10 +152,28 @@ public class UserController {
     @GetMapping("/cart/decrement")
     public String decrementQuantity(@RequestParam("quantity") int quantity, @RequestParam("id") int id){
 	QuantityProductsEntity qEntity = quantityService.findQuantityById(id);
-	if(quantity > 1) qEntity.setQuantity(quantity - 1);
+	ProductEntity product = qEntity.getProduct();
+	if(quantity > 1){
+	    product.setInStock(product.getInStock() + 1);
+	    qEntity.setQuantity(quantity - 1);
+	}
 	
+	productService.saveProduct(product);
 	quantityService.saveQuantity(qEntity);
 	return "redirect:/user/cart";
+    }
+    
+    @GetMapping("/favorite")
+    public String showFavorite(Model model, Principal principal) throws IOException{
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	Set<ProductEntity> products = user.getFavoriteProducts();
+	for(ProductEntity product : products){
+	    product.setImagePath(CustomFileUtils.getImage("product_"  + product.getId(), product.getImagePath()));
+	}
+	
+	model.addAttribute("title", "Favorite products page");
+	model.addAttribute("productsModel", products);
+	return "user/favorite";
     }
     
     @GetMapping("/delete/user")

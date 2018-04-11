@@ -39,6 +39,10 @@ public class OrderController {
 	if(principal == null) return "redirect:/login";
 	UserEntity user = userService.findUserByEmail(principal.getName());
 	ProductEntity product = productService.findProductById(id);
+	
+	if(product.getInStock() > 0){
+	    product.setInStock(product.getInStock() - 1);
+	}
 	OrderEntity order = new OrderEntity();
 	QuantityProductsEntity quantity = new QuantityProductsEntity();
 	
@@ -80,7 +84,8 @@ public class OrderController {
 	    order.getQuantitys().add(quantity);
 	    order.setUser(user);
 	}	
-
+	
+	productService.saveProduct(product);
 	quantityService.saveQuantity(quantity);
 	orderService.saveOrder(order);
 	

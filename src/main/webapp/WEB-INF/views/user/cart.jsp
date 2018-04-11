@@ -25,18 +25,18 @@
 			  <tbody>
 			  	<c:forEach items="${cartList}" var="quantity">
 				    <tr>
-				      <td scope="row"><img src="data:image/png; base64, ${quantity.product.imagePath}" alt="image product" ></td>
+				      <td scope="row"><img src="data:image/png; base64, ${quantity.product.imagePath}" alt="image product" class="list-cart-img" ></td>
 				      <td>${quantity.product.name}</td>
 				      <td>${quantity.product.createdAt}</td>
 					  <td>${quantity.product.price} <i class="fas fa-dollar-sign"></i></td>					  
 					  <td>
 					  	<div class="btn-group" role="group" aria-label="Basic example">
-						  <a href="/user/cart/increment?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
-						  	<i class="fas fa-plus"></i>
+					  	  <a href="/user/cart/decrement?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
+						  	<i class="fas fa-minus"></i>
 						  </a>
 						  <div class="quantity">${quantity.quantity}</div>
-						  <a href="/user/cart/decrement?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
-						  	<i class="fas fa-minus"></i>
+						  <a href="/user/cart/increment?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
+						  	<i class="fas fa-plus"></i>
 						  </a>
 						</div>
 					  </td> 

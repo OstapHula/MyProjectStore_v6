@@ -23,8 +23,8 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="/user/history" role="button" class="btn btn-block nav-link">
-        <i class="fas fa-history"></i> Shopping history
+      <a href="/user/shopping" role="button" class="btn btn-block nav-link">
+        <i class="fas fa-history"></i> Shopping
       </a>
     </li>
     <c:url var="logoutUrl" value="/logout" />

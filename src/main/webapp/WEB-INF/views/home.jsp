@@ -131,8 +131,8 @@
 
   <div id="googleMap"></div>
 
-  <a href="#" class="btn btn-light btn-block btn-lg backtt up-arrow" data-toggle="tooltip" title="TO TOP">
-    <i class="fas fa-angle-double-up animated fadeInUp" id="animated"></i> Back to top
+  <a href="javascript://0" class="btn btn-light btn-block btn-lg backtt up-arrow" onclick="slowScroll ('#home')" data-toggle="tooltip" title="TO TOP">
+    <i class="fas fa-angle-double-up animated fadeInUp" id="animated"></i> Back to top 
   </a>
 </main>
 

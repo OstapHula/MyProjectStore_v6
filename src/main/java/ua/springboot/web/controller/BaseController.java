@@ -2,6 +2,8 @@ package ua.springboot.web.controller;
 
 import static ua.springboot.web.mapper.UserMapper.registerRequestToUserEntity;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ua.springboot.web.domain.base.LoginRequest;
 import ua.springboot.web.domain.base.RegisterRequest;
+import ua.springboot.web.entity.ProductEntity;
 import ua.springboot.web.entity.UserEntity;
+import ua.springboot.web.service.ProductService;
 import ua.springboot.web.service.UserService;
 
 @Controller
 public class BaseController {
 	
 	@Autowired private UserService userService;
+	@Autowired private ProductService productService;
 	
 	@GetMapping({"/", "/home"})
 	public String showHome(Model model) {
@@ -82,6 +87,32 @@ public class BaseController {
 	    }
 	    
 	    return "verify/verify-success";
+	}
+	
+	@GetMapping("/like")
+	public String likeProduct(@RequestParam("id") int id, Principal principal){
+    	   UserEntity user = userService.findUserByEmail(principal.getName());
+    	   ProductEntity product = productService.findProductById(id);
+    	   
+    	   user.getFavoriteProducts().add(product);
+    	   product.getUsersLike().add(user);
+    	   
+    	   userService.updateUser(user);
+    	   productService.saveProduct(product);
+    	   return "redirect:/product/catalog";
+	}
+	
+	@GetMapping("/dislike")
+	public String dislikeProduct(@RequestParam("id") int id, Principal principal){
+	    UserEntity user = userService.findUserByEmail(principal.getName());
+	    ProductEntity product = productService.findProductById(id);
+	    
+	    user.getFavoriteProducts().remove(product);
+	    product.getUsersLike().remove(user);
+	    
+	    userService.updateUser(user);
+	    productService.saveProduct(product);
+	    return "redirect:/user/favorite";
 	}
 }
 

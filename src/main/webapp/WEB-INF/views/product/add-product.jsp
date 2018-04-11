@@ -44,6 +44,13 @@
 		      </div>
 		      
 		      <div class="form-group row">
+		        <label class="col-sm-3 control-label"><span style="color:red;">* </span> In Stock: </label>
+		        <div class="col-sm-9">
+		          <form:input path="inStock" cssClass="form-control" title="In Stock" placeholder="0"/>
+		      	</div>
+		      </div>
+		      
+		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">Watch style: </label>
 		         <div class="col-sm-9">
 		         	<c:forEach items="${styleModel}" var="style">
@@ -145,7 +152,9 @@
 		      
 			  <div class="row">
 				 <div class="col-sm-9 offset-3">
-				 	<input type="submit" class="btn btn-success btn-block" value="Create product">
+				 	<button type="submit" class="btn btn-success btn-block" value="Save change">
+				 		<i class="fas fa-plus-square"></i> Create product
+				 	</button>
 				 </div>
 			  </div>
 			</div>

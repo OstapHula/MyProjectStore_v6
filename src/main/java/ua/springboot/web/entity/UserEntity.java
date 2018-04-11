@@ -1,7 +1,9 @@
 package ua.springboot.web.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,7 +36,6 @@ public class UserEntity extends BaseEntity {
 	
 	@Column(name = "last_name")
 	private String lastName;
-	private String address;
 	private String telephone;
 	private int age;
 	
@@ -51,12 +52,19 @@ public class UserEntity extends BaseEntity {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<OrderEntity> orders = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<AddresEntity> addreses = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<CardEntity> cards = new ArrayList<>();
+	
+	@Column(name = "favorite_products")
 	@ManyToMany
 	@JoinTable(
     		name = "user_product",
     		joinColumns = @JoinColumn(name = "user_id"),
     		inverseJoinColumns = @JoinColumn(name = "product_id")
 		)
-	private List<ProductEntity> products = new ArrayList<>();
+	private Set<ProductEntity> favoriteProducts = new HashSet<>();
 	
 }

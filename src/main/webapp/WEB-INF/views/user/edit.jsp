@@ -32,13 +32,6 @@
 		      </div>
 		        
 		      <div class="form-group row">
-		         <label class="col-sm-3 control-label">Address: </label>
-		         <div class="col-sm-9">
-		           <form:input path="address" cssClass="form-control" title="Address" />
-		         </div>
-		      </div>
-		        
-		      <div class="form-group row">
 		         <label class="col-sm-3 control-label">Telephone: </label>
 		         <div class="col-sm-9">
 		           <form:input path="telephone" cssClass="form-control" title="Telephone" />

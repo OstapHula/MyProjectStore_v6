@@ -16,7 +16,6 @@
 			      	<th width="100">Image</th>
 					<th>FullName</th>
 					<th>Email</th>
-					<th>Address</th>
 					<th>Telephone</th>
 					<th>Age</th>
 					<th>CreatedAt</th>
@@ -36,7 +35,6 @@
 				      </td>
 					  <td>${user.firstName} ${user.lastName}</td>
 					  <td>${user.email}</td>
-					  <td>${user.address}</td>
 					  <td>${user.telephone}</td>
 					  <td>${user.age}</td>
 					  <td>${user.createdAt}</td>

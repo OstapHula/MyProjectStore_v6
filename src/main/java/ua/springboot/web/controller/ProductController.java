@@ -39,8 +39,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/catalog")
-    public String showPagebleProduct(Model model, @PageableDefault Pageable pegeable) {
+    public String showPagebleProduct(Model model, @PageableDefault Pageable pegeable) throws IOException {
 	Page<ProductEntity> page = productService.findAllProductsByPage(pegeable);
+	
+	for(ProductEntity entity : page) {
+	  entity.setImagePath(CustomFileUtils.getImage("product_" + entity.getId(), entity.getImagePath()));
+	}
 	
 	int currentPage = page.getNumber();
 	int totalPage = page.getTotalPages() - 1;
@@ -62,8 +66,7 @@ public class ProductController {
     public String showProductsByNameFilter(Model model,
 	    @PageableDefault Pageable pegeable,
 	    @RequestParam("search") String search) {
-	Page<ProductEntity> page = productService.findProductByName(pegeable,
-		new ProductNameFilter(search));
+	Page<ProductEntity> page = productService.findProductByName(pegeable, new ProductNameFilter(search));
 
 	model.addAttribute("productList", page.getContent());
 	return "product/products";

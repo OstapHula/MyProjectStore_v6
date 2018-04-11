@@ -22,7 +22,6 @@
 		         <li>Name: ${userProfile.firstName} ${userProfile.lastName}</li>
 		         <li>Age: ${userProfile.age}</li>
 			  	 <li>Email: ${userProfile.email}</li>
-				 <li>Address: ${userProfile.address}</li>
 				 <li>Telephone: ${userProfile.telephone}</li> 
 	        </ul>
 	      </div>

@@ -10,9 +10,10 @@
 			<h1>${productModel.name}</h1>
 			<hr>
 			<div class="row justify-content-between">
-				<div class="col-11"><p style="max-hight: 200px">${productModel.description}</p></div>
-				<div class="col-1"><a href="#"><i class="fas fa-heart heart"></i></a></div>
+				<span class="badge badge-info">In stock: ${productModel.inStock}</span>  
+				<a href="/like?id=${productModel.id}"><i class="fas fa-heart heart animated pulse" id="animated"></i></a>
 			</div>
+			<p style="max-hight: 200px">${productModel.description}</p>
 			<h3 class="price">${productModel.price} <i class="fas fa-dollar-sign"></i></h3>
 			<div class="row buy-btn">
 				<c:choose>
@@ -25,12 +26,24 @@
                		</a>
                	</c:when>
                	<c:otherwise>
-               		<a href="/order/add-to-cart?id=${productModel.id}" role="button" class="btn btn-success ">
-               			Add to cart <i class="fas fa-shopping-cart"></i>
-               		</a>
-					<a href="#" role="button" class="btn btn-secondary ">
-						Buy now <i class="fas fa-shopping-basket"></i>
-					</a>
+               		<c:choose>
+               			<c:when test="${productModel.inStock <= 0}">
+               				<a href="#" role="button" class="btn btn-success disabled">
+		               			Add to cart <i class="fas fa-shopping-cart"></i>
+		               		</a>
+							<a href="#" role="button" class="btn btn-secondary disabled">
+								Buy now <i class="fas fa-shopping-basket"></i>
+							</a>
+               			</c:when>
+               			<c:otherwise>
+               				<a href="/order/add-to-cart?id=${productModel.id}" role="button" class="btn btn-success ">
+		               			Add to cart <i class="fas fa-shopping-cart"></i>
+		               		</a>
+							<a href="#" role="button" class="btn btn-secondary ">
+								Buy now <i class="fas fa-shopping-basket"></i>
+							</a>
+               			</c:otherwise>
+               		</c:choose>
                	</c:otherwise>
                </c:choose>
 				
