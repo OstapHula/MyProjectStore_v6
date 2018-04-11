@@ -23,12 +23,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ua.springboot.web.domain.base.ChangePasswordRequest;
 import ua.springboot.web.domain.user.EditUserRequest;
+import ua.springboot.web.entity.AddresEntity;
+import ua.springboot.web.entity.CardEntity;
 import ua.springboot.web.entity.OrderEntity;
 import ua.springboot.web.entity.ProductEntity;
 import ua.springboot.web.entity.QuantityProductsEntity;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.entity.enumeration.OrderStatus;
 import ua.springboot.web.mapper.UserMapper;
+import ua.springboot.web.service.AddressService;
+import ua.springboot.web.service.CardService;
 import ua.springboot.web.service.OrderService;
 import ua.springboot.web.service.ProductService;
 import ua.springboot.web.service.QuantityService;
@@ -48,6 +52,10 @@ public class UserController {
     private QuantityService quantityService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private CardService cardService;
     
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -59,6 +67,7 @@ public class UserController {
 	
 	model.addAttribute("title", entity.getRole().getRole() + " profile");
 	model.addAttribute("userProfile", UserMapper.entityUserToUserRequest(entity));
+	model.addAttribute("addresesModel", entity.getAddreses());
 	return "user/profile";
     }
         
@@ -68,6 +77,8 @@ public class UserController {
 	EditUserRequest request = UserMapper.entityUserToEditRequest(entity);
 
 	model.addAttribute("title", "Edit profile page");
+	model.addAttribute("addresesModel", entity.getAddreses());
+	model.addAttribute("cardsModel", entity.getCards());
 	model.addAttribute("editUserModel", request);
 	return "user/edit";
     }
@@ -103,6 +114,44 @@ public class UserController {
 	UserEntity entity = UserMapper.changePasswordRequestToUserEntity(request);
 	userService.updateUser(entity);
 	return new ModelAndView("redirect:/user/edit");
+    }
+    
+    @GetMapping("/add-address")
+    public String showAddAddress(Model model){
+	model.addAttribute("title", "Add address page");
+	model.addAttribute("addAddressModel", new AddresEntity());
+	return "user/add-address";
+    }
+    
+    @PostMapping("/add-address")
+    public String saveAddAddress(@ModelAttribute ("addAddressModel")  AddresEntity entity, 
+	    Principal principal){
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	entity.setUser(user);
+	user.getAddreses().add(entity);
+	
+	addressService.saveAddress(entity);
+	userService.updateUser(user);
+	return "redirect:/user/edit";
+    }
+    
+    @GetMapping("/add-card")
+    public String showAddCard(Model model){
+	model.addAttribute("title", "Add card page");
+	model.addAttribute("addCardModel", new CardEntity());
+	return "user/add-card";
+    }
+    
+    @PostMapping("/add-card")
+    public String saveAddCard(@ModelAttribute ("addCardModel")  CardEntity entity, 
+	    Principal principal){
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	entity.setUser(user);
+	user.getCards().add(entity);
+	
+	cardService.saveCard(entity);
+	userService.updateUser(user);
+	return "redirect:/user/edit";
     }
     
     @GetMapping("/users")
@@ -194,4 +243,15 @@ public class UserController {
 	return "redirect:/user/cart";
     }
  
+    @GetMapping("/delete/address")
+    public String showDelAddress(@RequestParam("id") int id){
+	addressService.deleteAdderssById(id);
+	return "redirect:/user/edit";
+    }
+    
+    @GetMapping("/delete/card")
+    public String showDelCard(@RequestParam("id") int id){
+	cardService.deleteCardById(id);
+	return "redirect:/user/edit";
+    }
 }

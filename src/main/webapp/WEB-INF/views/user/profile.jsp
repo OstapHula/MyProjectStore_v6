@@ -19,10 +19,25 @@
 	        <h2>${userProfile.role.role} profile</h2>
 	        <hr>
 	        <ul>
-		         <li>Name: ${userProfile.firstName} ${userProfile.lastName}</li>
-		         <li>Age: ${userProfile.age}</li>
-			  	 <li>Email: ${userProfile.email}</li>
-				 <li>Telephone: ${userProfile.telephone}</li> 
+	        	 <c:if test="${userProfile.firstName != null}">
+		         	<li><i class="fas fa-user"></i> ${userProfile.firstName} ${userProfile.lastName}</li>
+		         </c:if>
+		         <c:if test="${userProfile.age != null}">
+		         	<li><i class="fas fa-birthday-cake"></i> ${userProfile.age}</li>
+		         </c:if>
+			  	 <c:if test="${userProfile.email != null}">
+			  	 	<li><i class="fas fa-at"></i> ${userProfile.email}</li>
+			  	 </c:if>
+				 <c:if test="${userProfile.telephone != null}">
+				 	<li><i class="fas fa-mobile-alt"></i> ${userProfile.telephone}</li>
+				 </c:if> 
+				 <c:if test="${addresesModel != null}">
+				 	<c:forEach items="${addresesModel}" var="address">
+				 		<i class="fas fa-map-marker"></i> 
+				 		st. ${address.street}, ${address.houseNumber }/${address.apartmenNumbert}<br>
+				 		${address.country}, ${address.city}, ${address.postalCode}<br>
+				 	</c:forEach>
+				 </c:if>
 	        </ul>
 	      </div>
         </div>

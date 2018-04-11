@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "addres")
+@Table(name = "card")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class CardEntity extends BaseEntity {
     private int validityPeriodMM;
     
     @Column(name = "validity_period_yy")
-    private int validityPeriodYYs;
+    private int validityPeriodYY;
     
     @Column(name = "security_code")
     private int securityCode;
