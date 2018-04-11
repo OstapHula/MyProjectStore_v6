@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.stereotype.Component;
 
-import ua.springboot.web.domain.RegisterRequest;
+import ua.springboot.web.domain.base.RegisterRequest;
 
 @Component
 public class CheckPasswordsMatchValidatorRegister implements ConstraintValidator<CheckPasswordsMatch, RegisterRequest> {

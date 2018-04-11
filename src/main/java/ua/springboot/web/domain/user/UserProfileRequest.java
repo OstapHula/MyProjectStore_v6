@@ -1,18 +1,15 @@
-package ua.springboot.web.domain;
+package ua.springboot.web.domain.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import ua.springboot.web.entity.enumeration.UserRole;
 
-@NoArgsConstructor
 @Getter
 @Setter
-public class EditUserRequest {
-
+@NoArgsConstructor
+public class UserProfileRequest {
+    
     	private int id;
     	private String email;
 	private String firstName;
@@ -20,10 +17,8 @@ public class EditUserRequest {
 	private String address;
 	private String telephone;
 	private int age;
+	private String ImagePath;
 	private UserRole role;
-	private MultipartFile file;
-	private String oldImage;
-	private String password;
 	private String isActivated;
     
 }

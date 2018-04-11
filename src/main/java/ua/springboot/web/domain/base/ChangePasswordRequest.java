@@ -1,4 +1,4 @@
-package ua.springboot.web.domain;
+package ua.springboot.web.domain.base;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

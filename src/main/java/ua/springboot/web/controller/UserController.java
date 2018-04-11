@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ua.springboot.web.domain.ChangePasswordRequest;
-import ua.springboot.web.domain.EditUserRequest;
+import ua.springboot.web.domain.base.ChangePasswordRequest;
+import ua.springboot.web.domain.user.EditUserRequest;
 import ua.springboot.web.entity.OrderEntity;
+import ua.springboot.web.entity.QuantityProductsEntity;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.entity.enumeration.OrderStatus;
 import ua.springboot.web.mapper.UserMapper;
@@ -118,10 +119,28 @@ public class UserController {
 	if (!user.getOrders().isEmpty()) {
 	    order = orderService.findOrderByStatus(OrderStatus.CART, user.getId());
 	}
-	System.out.println("quantitys: " + order.getQuantitys());
+
 	model.addAttribute("title", "My cart page");
 	model.addAttribute("cartList", order.getQuantitys());
 	return "user/cart";
+    }
+    
+    @GetMapping("/cart/increment")
+    public String incrementQuantity(@RequestParam("quantity") int quantity, @RequestParam("id") int id){
+	QuantityProductsEntity qEntity = quantityService.findQuantityById(id);
+	qEntity.setQuantity(quantity + 1);
+	
+	quantityService.saveQuantity(qEntity);
+	return "redirect:/user/cart";
+    }
+    
+    @GetMapping("/cart/decrement")
+    public String decrementQuantity(@RequestParam("quantity") int quantity, @RequestParam("id") int id){
+	QuantityProductsEntity qEntity = quantityService.findQuantityById(id);
+	if(quantity > 1) qEntity.setQuantity(quantity - 1);
+	
+	quantityService.saveQuantity(qEntity);
+	return "redirect:/user/cart";
     }
     
     @GetMapping("/delete/user")

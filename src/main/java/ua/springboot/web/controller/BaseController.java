@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ua.springboot.web.domain.LoginRequest;
-import ua.springboot.web.domain.RegisterRequest;
+import ua.springboot.web.domain.base.LoginRequest;
+import ua.springboot.web.domain.base.RegisterRequest;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.service.UserService;
 

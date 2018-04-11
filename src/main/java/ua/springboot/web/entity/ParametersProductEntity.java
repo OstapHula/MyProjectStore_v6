@@ -24,23 +24,24 @@ import ua.springboot.web.entity.enumeration.ProductStyle;
 @NoArgsConstructor
 public class ParametersProductEntity extends BaseEntity {
 	
-	private ProductStyle style;
+    	@Enumerated(EnumType.STRING)
+	private ProductStyle style = ProductStyle.CLASSIC;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "material_strap")
-	private MaterialStrap materialStrap;
+	private MaterialStrap materialStrap = MaterialStrap.CLOTH;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "material_body")
-	private MaterialBody materialBody;
+	private MaterialBody materialBody = MaterialBody.ALUMINIUM;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "fase_type")
-	private FaseType faseType;
+	private FaseType faseType = FaseType.ANALOG;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "fase_color")
-	private FaseColor faseColor;
+	private FaseColor faseColor = FaseColor.BLACK;
 	
 	private int weight;
 	private int waterproof;

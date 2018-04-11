@@ -6,6 +6,7 @@
 			<img src="data:image/png; base64, ${productModel.imagePath}" alt="image profile"/>
 		</div>
 		<div class="col-md-5">
+			<sec:authentication property="principal.username" var="username" />
 			<h1>${productModel.name}</h1>
 			<hr>
 			<div class="row justify-content-between">
@@ -14,8 +15,25 @@
 			</div>
 			<h3 class="price">${productModel.price} <i class="fas fa-dollar-sign"></i></h3>
 			<div class="row buy-btn">
-				<a href="/order/add-to-cart?id=${productModel.id}" role="button" class="btn btn-success ">Add to cart <i class="fas fa-shopping-cart"></i></a>
-				<a href="#" role="button" class="btn btn-secondary ">Buy now <i class="fas fa-shopping-basket"></i></a>
+				<c:choose>
+               	<c:when test="${username == 'admin@gmail.com'}">
+               		<a href="/product/edit/${productModel.id}" class="btn btn btn-warning">
+               			<i class="fas fa-edit"></i> Edit
+               		</a>
+               		<a href="/product/delete?id=${productModel.id}" class="btn btn-danger">
+               			<i class="fas fa-trash-alt"></i> Delete
+               		</a>
+               	</c:when>
+               	<c:otherwise>
+               		<a href="/order/add-to-cart?id=${productModel.id}" role="button" class="btn btn-success ">
+               			Add to cart <i class="fas fa-shopping-cart"></i>
+               		</a>
+					<a href="#" role="button" class="btn btn-secondary ">
+						Buy now <i class="fas fa-shopping-basket"></i>
+					</a>
+               	</c:otherwise>
+               </c:choose>
+				
 			</div>
 		    <a data-toggle="collapse" href="#collapseExample">
 		      <u>Product details</u> <i class="fas fa-sort-down"></i>

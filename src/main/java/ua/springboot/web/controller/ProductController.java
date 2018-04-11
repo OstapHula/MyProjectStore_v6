@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ua.springboot.web.domain.CreateProductRequest;
-import ua.springboot.web.domain.ProductNameFilter;
+import ua.springboot.web.domain.product.CreateProductRequest;
+import ua.springboot.web.domain.product.EditProductRequest;
+import ua.springboot.web.domain.product.ProductNameFilter;
+import ua.springboot.web.entity.ParametersProductEntity;
 import ua.springboot.web.entity.ProductEntity;
 import ua.springboot.web.entity.enumeration.FaseColor;
 import ua.springboot.web.entity.enumeration.FaseType;
@@ -37,10 +39,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/catalog")
-    public String showPagebleProduct(Model model,
-	    @PageableDefault Pageable pegeable) {
+    public String showPagebleProduct(Model model, @PageableDefault Pageable pegeable) {
 	Page<ProductEntity> page = productService.findAllProductsByPage(pegeable);
-
+	
 	int currentPage = page.getNumber();
 	int totalPage = page.getTotalPages() - 1;
 	int begin = Math.max(0, currentPage - 2);
@@ -57,7 +58,7 @@ public class ProductController {
 	return "product/products";
     }
 
-    @PostMapping("/products/search")
+    @GetMapping("/products/search")
     public String showProductsByNameFilter(Model model,
 	    @PageableDefault Pageable pegeable,
 	    @RequestParam("search") String search) {
@@ -77,6 +78,7 @@ public class ProductController {
 	    product.setDescription("Product description_" + i);
 	    product.setPrice(new BigDecimal(i * 10 + ".00"));
 	    product.setInStock(i % 5);
+	    product.setParameters(new ParametersProductEntity());
 
 	    productService.saveProduct(product);
 	}
@@ -110,17 +112,51 @@ public class ProductController {
     }
 
     @PostMapping("/add-product")
-    public String saveCreatedProduct(
-	    @ModelAttribute("productModel") CreateProductRequest request) throws IOException {
+    public String saveCreatedProduct(@ModelAttribute("productModel") CreateProductRequest request) throws IOException {
 	ProductEntity entity = ProductMapper.createProductRequestToProductEntity(request);
 
 	productService.saveProduct(entity);
 
 	CustomFileUtils.createFolder("product_" + entity.getId());
-	CustomFileUtils.createImage("product_" + entity.getId(),
-		request.getProductImage());
+	CustomFileUtils.createImage("product_" + entity.getId(), request.getProductImage());
 
 	return "redirect:/product/product/" + entity.getId();
+    }
+    
+    @GetMapping("/edit/{productId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String showEditProduct(@PathVariable("productId") int productId, Model model) {
+	ProductEntity entity = productService.findProductById(productId);
+	EditProductRequest product = ProductMapper.productEntityToEditProductRequest(entity, entity.getParameters());
+	System.out.println("id: " + product.getProductId());
+	model.addAttribute("title", "Edit product");
+
+	model.addAttribute("styleModel", ProductStyle.values());
+	model.addAttribute("materialStrapModel", MaterialStrap.values());
+	model.addAttribute("materialBodyModel", MaterialBody.values());
+	model.addAttribute("FaseTypeModel", FaseType.values());
+	model.addAttribute("FaseColorModel", FaseColor.values());
+
+	model.addAttribute("productModel", product);
+	return "product/edit";
+    }
+    
+    @PostMapping("/edit/{productId}")
+    public String saveEditedProduct(@PathVariable("productId") int productId, 
+	    @ModelAttribute("productModel") EditProductRequest request) throws IOException {
+	ProductEntity entity = ProductMapper.editProductRequestToProductEntity(request);
+
+	productService.saveProduct(entity);
+	
+	CustomFileUtils.createImage("product_" + entity.getId(), request.getFile());
+
+	return "redirect:/product/product/" + entity.getId();
+    }
+    
+    @GetMapping("/delete")
+    public String deleteProduct(@RequestParam("id") int id){
+	productService.delProductById(id);
+	return "redirect:/product/catalog";
     }
     
 }

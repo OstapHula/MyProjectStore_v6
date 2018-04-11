@@ -13,32 +13,29 @@
 			  <thead class="thead-light">
 			    <tr>
 			      	<th>Id</th>
-					<th>Order Status</th>
+					<th>Status</th>
 					<th>User</th>
 					<th>Products</th>
-					<th>In Cart</th>
 					<th>Created At</th>
-					<th>Delete</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	<c:forEach items="${listOrders}" var="order">
 				    <tr>
 				      <td scope="row">${order.id}</td>
-				      <td>${order.orderStatus}</td>
+				      <td>${order.status}</td>
 					  <td>${order.user.firstName} ${order.user.email}</td>
 					  <td>
-					  	<c:forEach items="${order.products}" var="product">
-					  		Id: ${product.id}<br>
-					  		Name: ${product.name}<br>
-					  		Price: ${product.price}<br>
+					  	<c:forEach items="${order.quantitys}" var="quantity">
+					  		Id: ${quantity.product.id} |
+					  		Name: ${quantity.product.name} |
+					  		Price: ${quantity.product.price} |
+					  		Quantity: ${quantity.quantity} |
+					  		Sum: ${quantity.product.price*quantity.quantity}
+					  		<br>
 					  	</c:forEach>
 					  </td>
-					  <td>${order.inCart}</td>
 					  <td>${order.createdAt}</td>
-					  <td>
-					  	<a href="/user/delete?id=${user.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
-					  </td>
 				    </tr>
 				</c:forEach>
 			  </tbody>

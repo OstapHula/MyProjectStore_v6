@@ -1,4 +1,4 @@
-package ua.springboot.web.domain;
+package ua.springboot.web.domain.product;
 
 import java.math.BigDecimal;
 

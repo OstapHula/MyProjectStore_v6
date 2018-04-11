@@ -22,4 +22,9 @@ public class QuantityServiceImpl implements QuantityService{
 	quantityRepository.delete(id);
     }
 
+    @Override
+    public QuantityProductsEntity findQuantityById(int id) {
+	return quantityRepository.findOne(id);
+    }
+
 }

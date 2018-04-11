@@ -8,6 +8,7 @@
      <div class="col-lg-9">			
 		<h2>My cart</h2>
 		<hr>
+		<c:set var = "sum" scope = "session" value = "${0}"/>
 		<div style="overflow-x: auto">
 			<table class="table table-sm table-bordered ">
 			  <thead class="thead-light">
@@ -27,50 +28,33 @@
 				      <td scope="row"><img src="data:image/png; base64, ${quantity.product.imagePath}" alt="image product" ></td>
 				      <td>${quantity.product.name}</td>
 				      <td>${quantity.product.createdAt}</td>
-					  <td>${quantity.product.price}</td>					  
-					  <td>${quantity.quantity}</td> 
-					  <td>${quantity.product.price*quantity.quantity}</td>
+					  <td>${quantity.product.price} <i class="fas fa-dollar-sign"></i></td>					  
 					  <td>
-					  	<a href="/user/delete/quantity?id=${quantity.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
+					  	<div class="btn-group" role="group" aria-label="Basic example">
+						  <a href="/user/cart/increment?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
+						  	<i class="fas fa-plus"></i>
+						  </a>
+						  <div class="quantity">${quantity.quantity}</div>
+						  <a href="/user/cart/decrement?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
+						  	<i class="fas fa-minus"></i>
+						  </a>
+						</div>
+					  </td> 
+					  <td>${quantity.product.price*quantity.quantity} <i class="fas fa-dollar-sign"></i></td>
+					  <td>
+					  	<a href="/user/delete/quantity?id=${quantity.id}" class="btn btn-danger btn-block"><i class="fas fa-trash-alt"></i> Delete</a>
 					  </td>
 				    </tr>
+				    <c:set var = "sum" scope = "session" value = "${sum + quantity.product.price*quantity.quantity}"/>
 				</c:forEach>
+				<tr>
+					<td colspan="5"><h5>Confirm the order</h5></td>
+					<td><c:out value = "${sum}"/><i class="fas fa-dollar-sign"></i></td>
+					<td><a href="#" class="btn btn-success btn-block"><i class="fas fa-clipboard-check"></i> Confirm</a></td>
+				</tr>
 			  </tbody>
 			</table>
 		</div>
 	</div>
   </div>
 </div>
-<!-- private String name;
-	
-	@Column(columnDefinition = "DECIMAL(5,2)")
-	private BigDecimal price;
-	
-	@Column(name = "description")
-	private String description;
-	
-	@Column(name = "image_path")
-	private String imagePath;
-	
-	@Column(name = "in_stock")
-	private int inStock;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "parameters_product_id", nullable = true)
-	private ParametersProductEntity parameters;
-	
-	@ManyToMany
-	@JoinTable(
-			name = "product_order",
-			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "order_id")
-		)
-	private List<OrderEntity> orders = new ArrayList<>();
-	
-	@ManyToMany
-	@JoinTable(
-		name = "product_user",
-		joinColumns = @JoinColumn(name = "product_id"),
-		inverseJoinColumns = @JoinColumn(name = "user_id")
-		)
-	private List<UserEntity> users = new ArrayList<>();  -->

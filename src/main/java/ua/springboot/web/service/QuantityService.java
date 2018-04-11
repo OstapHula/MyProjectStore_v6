@@ -8,4 +8,5 @@ public interface QuantityService {
     
     void deleteQuantityById(int id);
     
+    QuantityProductsEntity findQuantityById(int id);
 }

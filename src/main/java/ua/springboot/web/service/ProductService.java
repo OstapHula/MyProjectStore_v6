@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import ua.springboot.web.domain.ProductNameFilter;
+import ua.springboot.web.domain.product.ProductNameFilter;
 import ua.springboot.web.entity.ProductEntity;
 
 public interface ProductService {

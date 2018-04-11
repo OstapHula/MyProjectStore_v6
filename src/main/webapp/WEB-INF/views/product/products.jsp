@@ -53,14 +53,16 @@
 	<hr>
 	
 	<div class="row listProducts">
+	  <sec:authentication property="principal.username" var="username" />
    	  <c:forEach items="${productsListByPageSize}" var="product">
 		<div class="element-product">
 		   <div class="card bg-light border-light">
 		   	 
-             <%-- <img src="data:image/png; base64, ${product.imagePath}" alt="product" class="card-img-top"> --%>
            	 <a href="#"><i class="fas fa-heart heart"></i></a>
              <a href="/product/product/${product.id}">
-             	<img src="${rootUrl}/resources/img/products/9063.png" class="card-img-top">
+<%--              	<img src="data:image/png; base64, ${product.imagePath}" alt="product" class="card-img-top"> --%>
+				<c:out value = "${product.imagePath}"/>
+             	<img src="data:image/png; base64, ${product.imagePath}" alt="image profile"/> 
              </a>
              <hr>
              <div class="card-body">      
@@ -68,9 +70,25 @@
                <h5 class="card-title">${product.name}</h5>              	               
 	           <h3 class="price">Price: ${product.price} <i class="fas fa-dollar-sign"></i></h3>	               
              </div>
-             <div class="btn-group" role="group" aria-label="Basic example">               
-               <a href="/product/product/${product.id}" class="btn btn-secondary"><i class="fas fa-info"></i> Details</a>
-               <a href="/product/add-to-cart?id=${product.id}" class="btn btn-success"><i class="fas fa-shopping-basket"></i> Buy now</a>
+             <div class="btn-group" role="group"> 
+               <c:choose>
+               	<c:when test="${username == 'admin@gmail.com'}">
+               		<a href="/product/edit/${product.id}" class="btn btn btn-warning">
+               			<i class="fas fa-edit"></i> Edit
+               		</a>
+               		<a href="/product/delete?id=${product.id}" class="btn btn-danger">
+               			<i class="fas fa-trash-alt"></i> Delete
+               		</a>
+               	</c:when>
+               	<c:otherwise>
+               		<a href="/product/product/${product.id}" class="btn btn-secondary">
+               			<i class="fas fa-info"></i> Details
+               		</a>
+               		<a href="/order/add-to-cart?id=${product.id}" class="btn btn-success">
+               			<i class="fas fa-shopping-basket"></i> Buy now
+               		</a>
+               	</c:otherwise>
+               </c:choose>              
              </div>
            </div>
 		</div>

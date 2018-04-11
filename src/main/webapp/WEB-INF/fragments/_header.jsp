@@ -69,7 +69,10 @@
 									<div class="dropdown-divider"></div>								     
 								    <a href="/product/add-product" class="btn dropdown-item">
 								    	<i class="fas fa-plus"></i> New product
-								    </a>								    
+								    </a>						
+							        <a href="/product/catalog" class="btn dropdown-item">
+							        	<i class="fas fa-th"></i> Products
+							        </a>
 							        <a href="/order/orders" class="btn dropdown-item">
 							        	<i class="fas fa-clipboard-list"></i> Orders
 							        </a>								     

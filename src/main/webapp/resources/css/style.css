@@ -43,6 +43,10 @@ select{
 tr th{
   text-transform: uppercase;
 }
+tr td{
+	vertical-align: middle !important;
+}
+
 
 /************************* BUTTON *************************/
 
@@ -325,10 +329,6 @@ tr th{
   min-width: inherit;
 }
 
-.userList tr td{
-  vertical-align: middle;
-}
-
 .list-profile-img{
   width: 40px;
   height: 40px;
@@ -369,7 +369,7 @@ tr th{
   margin-top: 20px;
 }
 
-.buy-btn button{
+.buy-btn .btn{
   margin: 5px;
   margin-bottom: 20px;
 }
@@ -424,6 +424,13 @@ tr th{
 .page-link:hover{
   color: #333;
   background-color: #fff;
+}
+
+.quantity{
+	padding: 0px 10px;
+	color: #6c757d;
+	font-weight: bould;
+	font-size: 1.2rem;
 }
 
 /*********************** FOOTER ***************************/

@@ -3,11 +3,11 @@ package ua.springboot.web.mapper;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
-import ua.springboot.web.domain.ChangePasswordRequest;
-import ua.springboot.web.domain.EditUserRequest;
-import ua.springboot.web.domain.LoginRequest;
-import ua.springboot.web.domain.RegisterRequest;
-import ua.springboot.web.domain.UserProfileRequest;
+import ua.springboot.web.domain.base.ChangePasswordRequest;
+import ua.springboot.web.domain.base.LoginRequest;
+import ua.springboot.web.domain.base.RegisterRequest;
+import ua.springboot.web.domain.user.EditUserRequest;
+import ua.springboot.web.domain.user.UserProfileRequest;
 import ua.springboot.web.entity.UserEntity;
 import ua.springboot.web.entity.enumeration.UserRole;
 

@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import ua.springboot.web.domain.ProductNameFilter;
+import ua.springboot.web.domain.product.ProductNameFilter;
 import ua.springboot.web.entity.ProductEntity;
 import ua.springboot.web.repository.ProductRepository;
 import ua.springboot.web.service.ProductService;
