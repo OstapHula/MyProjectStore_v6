@@ -26,11 +26,11 @@
 			  	<c:forEach items="${cartList}" var="quantity">
 				    <tr>
 				      <td scope="row"><img src="data:image/png; base64, ${quantity.product.imagePath}" alt="image product" class="list-cart-img" ></td>
-				      <td>${quantity.product.name}</td>
+				      <td><a href="/product/product/${quantity.product.id}" class="text-muted">${quantity.product.name}</a></td>
 				      <td>${quantity.product.createdAt}</td>
 					  <td>${quantity.product.price} <i class="fas fa-dollar-sign"></i></td>					  
 					  <td>
-					  	<div class="btn-group" role="group" aria-label="Basic example">
+					  	<div class="btn-group" role="group" >
 					  	  <a href="/user/cart/decrement?quantity=${quantity.quantity}&id=${quantity.id}" role="button" class="btn btn-secondary">
 						  	<i class="fas fa-minus"></i>
 						  </a>
@@ -50,7 +50,20 @@
 				<tr>
 					<td colspan="5"><h5>Confirm the order</h5></td>
 					<td><c:out value = "${sum}"/><i class="fas fa-dollar-sign"></i></td>
-					<td><a href="#" class="btn btn-success btn-block"><i class="fas fa-clipboard-check"></i> Confirm</a></td>
+					<td>
+						<c:choose>
+							<c:when test="${cartList.isEmpty()}">
+								<a href="" class="btn btn-success btn-block disabled">
+									<i class="fas fa-clipboard-check"></i> Confirm order
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="/user/confirm-order" class="btn btn-success btn-block">
+									<i class="fas fa-clipboard-check"></i> Confirm order
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 			  </tbody>
 			</table>

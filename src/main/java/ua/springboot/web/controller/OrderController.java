@@ -89,7 +89,7 @@ public class OrderController {
 	quantityService.saveQuantity(quantity);
 	orderService.saveOrder(order);
 	
-	return "redirect:/product/product/" + id;
+	return "redirect:/user/cart";
     }
 
     @GetMapping("/orders")

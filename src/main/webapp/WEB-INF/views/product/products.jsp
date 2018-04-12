@@ -60,7 +60,7 @@
 		<div class="element-product">
 		   <div class="card bg-light border-light">
 		   
-		   	<c:if test="${product.usersLike.size() == 0}">
+		   	<c:if test="${product.usersLike.isEmpty()}">
 		   		<a href="/like?id=${product.id}">
    		 			<i class="far fa-heart heart animated pulse" id="animated"></i>
    		 		</a>

@@ -98,7 +98,7 @@ public class BaseController {
     	   user.getFavoriteProducts().add(product);
     	   
     	   userService.updateUser(user);
-    	   return "redirect:/product/catalog";
+    	   return "redirect:/user/favorite";
 	}
 	
 	@GetMapping("/dislike")
@@ -110,7 +110,7 @@ public class BaseController {
 	    user.getFavoriteProducts().remove(product);
 	    
 	    userService.updateUser(user);
-	    return "redirect:/product/catalog";
+	    return "redirect:/user/favorite";
 	}
 }
 

@@ -8,6 +8,7 @@
       <div class="col-lg-9">
       	<h2>Create new product</h2>
       	<hr>
+      	<span style="color:red;">Fields with a star are required*</span>
       	<form:form 
 	      		action="/product/add-product" 
 	      		modelAttribute="productModel"  
@@ -141,7 +142,7 @@
 		      </div>
 		      
 		      <div class="form-group row">
-		         <label class="col-sm-3 control-label">Upload image: </label>
+		         <label class="col-sm-3 control-label"><span style="color:red;">* </span>Upload image: </label>
 		         <div class="col-sm-9">
 		           <div class="custom-file">
 					  <form:input path="productImage" type="file" class="custom-file-input" id="customFile"/>

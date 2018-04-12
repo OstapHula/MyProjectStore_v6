@@ -154,17 +154,6 @@ public class UserController {
 	return "redirect:/user/edit";
     }
     
-    @GetMapping("/users")
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    public String showListUsers(Model model) throws IOException{
-	model.addAttribute("title", "List users page");
-	List<UserEntity> users = userService.findAllUsers();
-	for(UserEntity user : users){
-	    user.setImagePath(CustomFileUtils.getImage("user_" + user.getId(), user.getImagePath()));
-	}
-	model.addAttribute("userListModel", users);
-	return "user/users";
-    } 
     
     @GetMapping("/cart")
     public String showUserCart(Model model, Principal principal) throws IOException{
@@ -183,6 +172,29 @@ public class UserController {
 	model.addAttribute("cartList", order.getQuantitys());
 	return "user/cart";
     }
+    
+    @GetMapping("/confirm-order")
+    public String showConfirmOrder(Model model,Principal principal) throws IOException{
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	OrderEntity order = orderService.findOrderByStatus(OrderStatus.CART, user.getId());
+	
+	for(QuantityProductsEntity quantity : order.getQuantitys()){
+	    ProductEntity product = quantity.getProduct();
+	    product.setImagePath(CustomFileUtils.getImage("product_" + product.getId(), product.getImagePath()));
+	}
+
+	model.addAttribute("title", "Confirm order page");
+	model.addAttribute("orderModel", order);
+	return "user/confirm-order";
+    }
+    
+    @PostMapping("/confirm-order")
+    public String saveConfirmOrder(@ModelAttribute("orderModel") OrderEntity order, Principal principal){
+	order.setStatus(OrderStatus.CONFIRM);
+	orderService.saveOrder(order);
+	return "user/payment";
+    }
+
     
     @GetMapping("/cart/increment")
     public String incrementQuantity(@RequestParam("quantity") int quantity, @RequestParam("id") int id){
@@ -212,6 +224,14 @@ public class UserController {
 	return "redirect:/user/cart";
     }
     
+    @GetMapping("/orders")
+    public String showUserOrders(Model model, Principal principal){
+	UserEntity user = userService.findUserByEmail(principal.getName());
+	model.addAttribute("title", "My orders page");
+	model.addAttribute("ordersModel", user.getOrders());
+	return "user/orders";
+    }
+    
     @GetMapping("/favorite")
     public String showFavorite(Model model, Principal principal) throws IOException{
 	UserEntity user = userService.findUserByEmail(principal.getName());
@@ -224,6 +244,18 @@ public class UserController {
 	model.addAttribute("productsModel", products);
 	return "user/favorite";
     }
+    
+    @GetMapping("/users")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String showListUsers(Model model) throws IOException{
+	model.addAttribute("title", "List users page");
+	List<UserEntity> users = userService.findAllUsers();
+	for(UserEntity user : users){
+	    user.setImagePath(CustomFileUtils.getImage("user_" + user.getId(), user.getImagePath()));
+	}
+	model.addAttribute("userListModel", users);
+	return "user/users";
+    } 
     
     @GetMapping("/delete/user")
     @PreAuthorize("hasAnyRole('ADMIN')")

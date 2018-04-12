@@ -51,8 +51,8 @@
 								<a href="/user/cart" role="button" class="btn dropdown-item">
 									<i class="fas fa-shopping-cart"></i> Cart
 								</a> 
-								<a href="/user/shopping" role="button" class="btn dropdown-item">
-									<i class="fas fa-history"></i> Shopping
+								<a href="/user/orders" role="button" class="btn dropdown-item">
+									<i class="fas fa-history"></i> Orders
 								</a>
 								
 								<div class="dropdown-divider"></div>

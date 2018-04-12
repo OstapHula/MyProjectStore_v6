@@ -31,7 +31,17 @@ public class OrderEntity extends BaseEntity{
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 	
+	@ManyToOne
+    	@JoinColumn(name = "addres_id")
+    	private AddresEntity addres;
+	
+	@ManyToOne
+	@JoinColumn(name = "card_id")
+	private CardEntity card;
+	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<QuantityProductsEntity> quantitys = new ArrayList<>();
+	
+	    
 	
 }

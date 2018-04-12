@@ -69,36 +69,15 @@
       </div>
     </div>
 
-    <div class="team">
-      <h2>OUR TEAM</h2>
-      <div class="row">
-        <div class="col-lg-4 text-center">
-          <img class="rounded-circle" src="${rootUrl}/resources/img/team_1.jpg" alt="Generic placeholder image" width="140" height="140">
-          <h3>Mark</h3>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-        </div>
-        <div class="col-lg-4 text-center">
-          <img class="rounded-circle" src="${rootUrl}/resources/img/team_2.jpg" alt="Generic placeholder image" width="140" height="140">
-          <h3>Alex</h3>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-        </div>
-        <div class="col-lg-4 text-center">
-          <img class="rounded-circle" src="${rootUrl}/resources/img/team_3.jpg" alt="Generic placeholder image" width="140" height="140">
-          <h3>Sasha</h3>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </div>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
+    <hr class="featurette-divider text-center">
+	<h2 class="text-center">MOST POPULAR MODELS</h2>
     <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading">Fast delivery</h2>
         <p class="lead">We are always ready to help you! Can not choose?Contact us, we will help you choose exactly what you want.</p>
       </div>
       <div class="col-md-5">
-        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <img src="${rootUrl}/resources/img/products/9038.png" class="popular-models-img">
       </div>
     </div>
 
@@ -110,7 +89,7 @@
         <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <img src="${rootUrl}/resources/img/products/2.png" class="popular-models-img">
       </div>
     </div>
 
@@ -122,13 +101,34 @@
         <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
       </div>
       <div class="col-md-5">
-        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <img src="${rootUrl}/resources/img/products/1.png" class="popular-models-img">
       </div>
     </div>
-  </div>
-
-  <hr class="featurette-divider">
-
+  
+	  <hr class="featurette-divider">
+	    <div class="team">
+	      <h2>OUR TEAM</h2>
+	      <div class="row">
+	        <div class="col-lg-4 text-center">
+	          <img class="rounded-circle" src="${rootUrl}/resources/img/team_1.jpg" alt="Generic placeholder image" width="140" height="140">
+	          <h3>Mark</h3>
+	          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+	        </div>
+	        <div class="col-lg-4 text-center">
+	          <img class="rounded-circle" src="${rootUrl}/resources/img/team_2.jpg" alt="Generic placeholder image" width="140" height="140">
+	          <h3>Alex</h3>
+	          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+	        </div>
+	        <div class="col-lg-4 text-center">
+	          <img class="rounded-circle" src="${rootUrl}/resources/img/team_3.jpg" alt="Generic placeholder image" width="140" height="140">
+	          <h3>Sasha</h3>
+	          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+	        </div>
+	      </div>
+	    </div>
+	
+	  <hr class="featurette-divider">
+	</div>
   <div id="googleMap"></div>
 
   <a href="javascript://0" class="btn btn-light btn-block btn-lg backtt up-arrow" onclick="slowScroll ('#home')" data-toggle="tooltip" title="TO TOP">

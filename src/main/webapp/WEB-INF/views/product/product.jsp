@@ -13,7 +13,7 @@
 			<hr>
 			<div class="row justify-content-between">
 				<span class="badge badge-info">In stock: ${productModel.inStock}</span>  
-				<c:if test="${productModel.usersLike.size() == 0}">
+				<c:if test="${productModel.usersLike.isEmpty()}">
 			   		<a href="/like?id=${productModel.id}">
 	   		 			<i class="far fa-heart heart animated pulse" id="animated"></i>
 	   		 		</a>

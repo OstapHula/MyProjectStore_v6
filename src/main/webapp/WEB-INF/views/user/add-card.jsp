@@ -51,7 +51,7 @@
 			     </div>						
 								
 				<div class="row">
-					<button type="submit" class="col-sm-9 offset-3 btn btn-success btn-block" value="Change password">
+					<button type="submit" class="col-sm-9 offset-3 btn btn-success btn-block" value="Add card">
 						<i class="fas fa-credit-card"></i> Add card
 					</button>			
 				</div>
