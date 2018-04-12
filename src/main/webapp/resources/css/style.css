@@ -305,6 +305,10 @@ transition: all 0.5s ease-in-out;
   padding: 10px;
 }
 
+.profile-info span{
+	padding: 0px;
+}
+
 .modal-content{
   border-radius: 0px;
 }

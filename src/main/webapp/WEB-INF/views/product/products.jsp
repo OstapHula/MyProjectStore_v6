@@ -44,28 +44,51 @@
 		  </ul>
 		</nav>
 		
-		<form:form action="/product/products/search" method="POST" class="form-inline">
+		<form action="/product/products/search" class="form-inline">
 			<input type="text" name="search" placeholder="Type title product for search" class="form-control">
 			<input type="submit" value="Search" class="btn btn-primary">
-		</form:form>
+		</form>
 	</div>
 	
 	<hr>
 	
 	<div class="row listProducts">
-	  <sec:authentication property="principal.username" var="username" />
+	  <sec:authorize access="isAuthenticated()">
+	  	<sec:authentication property="principal.username" var="username" />
+	  </sec:authorize>
    	  <c:forEach items="${productsListByPageSize}" var="product">
 		<div class="element-product">
 		   <div class="card bg-light border-light">
-		   	 
-           	 <a href="/like?id=${product.id}"><i class="fas fa-heart heart animated pulse" id="animated"></i></a>
+		   
+		   	<c:if test="${product.usersLike.size() == 0}">
+		   		<a href="/like?id=${product.id}">
+   		 			<i class="far fa-heart heart animated pulse" id="animated"></i>
+   		 		</a>
+		   	</c:if>
+		   	<c:forEach items="${product.usersLike}" var="user">
+		   		 <c:choose>
+		   		 	<c:when test="${user.email == username}">
+		   		 		<a href="/dislike?id=${product.id}">
+		   		 			<i class="fas fa-heart heart animated pulse" id="animated"></i>
+		   		 		</a>
+		   		 	</c:when>
+		   		 	<c:otherwise>
+		   		 		<a href="/like?id=${product.id}">
+		   		 			<i class="far fa-heart heart animated pulse" id="animated"></i>
+		   		 		</a>
+		   		 	</c:otherwise>
+		   		 </c:choose>
+		   	 </c:forEach>
+           	 
              <a href="/product/product/${product.id}">
               	<img src="data:image/png; base64, ${product.imagePath}" alt="product" class="card-img-top">
              </a>
              <hr>
              <div class="card-body">      
                <span class="badge badge-info">In stock: ${product.inStock}</span>  
-               <h5 class="card-title">${product.name}</h5>              	               
+               <a href="/product/product/${product.id}" class="text-muted">
+               		<h5 class="card-title">${product.name}</h5>
+               </a>              	               
 	           <h3 class="price">Price: ${product.price} <i class="fas fa-dollar-sign"></i></h3>	               
              </div>
              <div class="btn-group" role="group"> 

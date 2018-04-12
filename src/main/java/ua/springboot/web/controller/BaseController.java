@@ -90,29 +90,27 @@ public class BaseController {
 	}
 	
 	@GetMapping("/like")
-	public String likeProduct(@RequestParam("id") int id, Principal principal){
+	public String likeProducts(@RequestParam("id") int id, Principal principal){
+	   if(principal == null) return "redirect:/login";
     	   UserEntity user = userService.findUserByEmail(principal.getName());
     	   ProductEntity product = productService.findProductById(id);
     	   
     	   user.getFavoriteProducts().add(product);
-    	   product.getUsersLike().add(user);
     	   
     	   userService.updateUser(user);
-    	   productService.saveProduct(product);
     	   return "redirect:/product/catalog";
 	}
 	
 	@GetMapping("/dislike")
-	public String dislikeProduct(@RequestParam("id") int id, Principal principal){
+	public String dislikeProducts(@RequestParam("id") int id, Principal principal){
+	    if(principal == null) return "redirect:/login";
 	    UserEntity user = userService.findUserByEmail(principal.getName());
 	    ProductEntity product = productService.findProductById(id);
 	    
 	    user.getFavoriteProducts().remove(product);
-	    product.getUsersLike().remove(user);
 	    
 	    userService.updateUser(user);
-	    productService.saveProduct(product);
-	    return "redirect:/user/favorite";
+	    return "redirect:/product/catalog";
 	}
 }
 

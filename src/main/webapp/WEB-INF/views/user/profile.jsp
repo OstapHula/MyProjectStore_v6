@@ -18,24 +18,38 @@
 	      <div class="col-md-7">
 	        <h2>${userProfile.role.role} profile</h2>
 	        <hr>
-	        <ul>
+	        <ul class="profile-info">
 	        	 <c:if test="${userProfile.firstName != null}">
-		         	<li><i class="fas fa-user"></i> ${userProfile.firstName} ${userProfile.lastName}</li>
+		         	<li class="row">
+		         		<i class="fas fa-user col-1"></i> 
+		         		<span class="col-11">${userProfile.firstName} ${userProfile.lastName}</span>
+		         	</li>
 		         </c:if>
 		         <c:if test="${userProfile.age != null}">
-		         	<li><i class="fas fa-birthday-cake"></i> ${userProfile.age}</li>
+		         	<li class="row">
+		         		<i class="fas fa-birthday-cake col-1"></i> 
+		         		<span class="col-11">${userProfile.age}</span>
+		         	</li>
 		         </c:if>
 			  	 <c:if test="${userProfile.email != null}">
-			  	 	<li><i class="fas fa-at"></i> ${userProfile.email}</li>
+			  	 	<li class="row">
+			  	 		<i class="fas fa-at col-1"></i> 
+			  	 		<span class="col-11">${userProfile.email}</span>
+			  	 	</li>
 			  	 </c:if>
 				 <c:if test="${userProfile.telephone != null}">
-				 	<li><i class="fas fa-mobile-alt"></i> ${userProfile.telephone}</li>
+				 	<li class="row">
+				 		<i class="fas fa-mobile-alt col-1"></i> 
+				 		<span class="col-11">${userProfile.telephone}</span>
+				 	</li>
 				 </c:if> 
 				 <c:if test="${addresesModel != null}">
 				 	<c:forEach items="${addresesModel}" var="address">
-				 		<i class="fas fa-map-marker"></i> 
-				 		st. ${address.street}, ${address.houseNumber }/${address.apartmenNumbert}<br>
-				 		${address.country}, ${address.city}, ${address.postalCode}<br>
+				 		<li class="row">
+					 		<i class="fas fa-map-marker col-1"></i> 
+					 		<span class="col-11">st. ${address.street}, ${address.houseNumber }/${address.apartmenNumbert}<br>
+					 		${address.country}, ${address.city}, ${address.postalCode}</span>
+				 		</li>
 				 	</c:forEach>
 				 </c:if>
 	        </ul>

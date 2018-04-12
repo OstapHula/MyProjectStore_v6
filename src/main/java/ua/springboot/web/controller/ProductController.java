@@ -61,13 +61,18 @@ public class ProductController {
 
 	return "product/products";
     }
-
+    
     @GetMapping("/products/search")
     public String showProductsByNameFilter(Model model,
 	    @PageableDefault Pageable pegeable,
-	    @RequestParam("search") String search) {
+	    @RequestParam("search") String search) throws IOException {
 	Page<ProductEntity> page = productService.findProductByName(pegeable, new ProductNameFilter(search));
-
+	
+	for(ProductEntity entity : page) {
+	    entity.setImagePath(CustomFileUtils.getImage("product_" + entity.getId(), entity.getImagePath()));
+	}
+	
+	model.addAttribute("title", "search " + search + " page");
 	model.addAttribute("productList", page.getContent());
 	return "product/products";
     }

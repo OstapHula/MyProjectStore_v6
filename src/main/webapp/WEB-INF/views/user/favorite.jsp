@@ -24,10 +24,14 @@
 			  	<c:forEach items="${productsModel}" var="product">
 				    <tr>
 				      <td scope="row"><img src="data:image/png; base64, ${product.imagePath}" alt="image profile" class="list-cart-img"></td>
-				      <td>${product.name}</td>		
+				      <td><a href="/product/product/${product.id}" class="text-muted">${product.name}</a></td>		
 					  <td>${product.price}</td>
 					  <td>${product.usersLike.size()}</td>
-					  <td><a href="/dislike?id=${product.id}"><i class="fas fa-heart heart" style="color: #faa"></i></a></td>
+					  <td>
+					  	<a href="/dislike?id=${product.id}">
+		   		 			<i class="fas fa-heart heart animated pulse" id="animated"></i>
+		   		 		</a>
+					  </td>
 					  <td>
 						  <a href="/product/product/${product.id}" class="btn btn-secondary">
 	               			<i class="fas fa-info"></i> Details

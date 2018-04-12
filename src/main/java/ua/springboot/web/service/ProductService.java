@@ -17,7 +17,7 @@ public interface ProductService {
     
     ProductEntity findProductById(int id);
     
-    ProductEntity findProductByName(String name);
+    List<ProductEntity> findAllProductsByName(String name);
     
     ProductEntity findProductByPrice(BigDecimal price);
     

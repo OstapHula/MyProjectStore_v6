@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product", indexes = @Index(columnList = "name, price"))
+@Table(name = "product", indexes = @Index(columnList = "name"))
 @Getter
 @Setter
 @NoArgsConstructor

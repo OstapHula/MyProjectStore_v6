@@ -37,10 +37,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductEntity findProductByName(String name) {
-	return productRepository.findProductByName(name);
+    public List<ProductEntity> findAllProductsByName(String name) {
+	return productRepository.findAllProductsByName(name);
     }
-
+    
     @Override
     public ProductEntity findProductByPrice(BigDecimal price) {
 	return productRepository.findProductByPrice(price);
@@ -83,5 +83,7 @@ public class ProductServiceImpl implements ProductService{
 	    }
 	};
     }
+
+
 
 }

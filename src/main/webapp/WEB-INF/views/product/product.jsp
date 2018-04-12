@@ -6,12 +6,32 @@
 			<img src="data:image/png; base64, ${productModel.imagePath}" alt="image profile"/>
 		</div>
 		<div class="col-md-5">
-			<sec:authentication property="principal.username" var="username" />
+			<sec:authorize access="isAuthenticated()">
+			 	<sec:authentication property="principal.username" var="username" />
+			</sec:authorize>
 			<h1>${productModel.name}</h1>
 			<hr>
 			<div class="row justify-content-between">
 				<span class="badge badge-info">In stock: ${productModel.inStock}</span>  
-				<a href="/like?id=${productModel.id}"><i class="fas fa-heart heart animated pulse" id="animated"></i></a>
+				<c:if test="${productModel.usersLike.size() == 0}">
+			   		<a href="/like?id=${productModel.id}">
+	   		 			<i class="far fa-heart heart animated pulse" id="animated"></i>
+	   		 		</a>
+			   	</c:if>
+			   	<c:forEach items="${productModel.usersLike}" var="user">
+			   		 <c:choose>
+			   		 	<c:when test="${user.email != username}">
+			   		 		<a href="/like?id=${productModel.id}">
+			   		 			<i class="far fa-heart heart animated pulse" id="animated"></i>
+			   		 		</a>
+			   		 	</c:when>
+			   		 	<c:otherwise>
+			   		 		<a href="/dislike?id=${productModel.id}">
+			   		 			<i class="fas fa-heart heart animated pulse" id="animated"></i>
+			   		 		</a>
+			   		 	</c:otherwise>
+			   		 </c:choose>
+			   	 </c:forEach>
 			</div>
 			<p style="max-hight: 200px">${productModel.description}</p>
 			<h3 class="price">${productModel.price} <i class="fas fa-dollar-sign"></i></h3>
